@@ -8,10 +8,10 @@ export default function Recipe() {
     const [data, setData] = useState({} as RecipeMetadata)
     const [isLoading, setLoading] = useState(false)
 
-    const { ingredients, directions } = data
+    const { ingredients, directions, title } = data
 
     const reqBody: GetOrCreateRecipeEntry = {
-        url: "https://www.allrecipes.com/recipe/263959/fluffy-japanese-pancakes/"
+        url: "https://tasty.co/recipe/pizza-dough"
     }
 
     useEffect(() => {
@@ -34,13 +34,13 @@ export default function Recipe() {
     if (isLoading) return <p>Loading...</p>
     if (!data) return <p>No profile data</p>
 
-    console.log(data.ingredients)
     return (
         <Layout>
             <Head>
-                <title>asdfsdf</title>
+                <title>{title}</title>
             </Head>
             <div>
+                <h1>{title}</h1>
                 <h1>Ingredients</h1>
                 {ingredients?.map(i => <p>{i}</p>)}
                 <h1>Directions</h1>
