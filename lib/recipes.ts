@@ -38,7 +38,6 @@ const getIngredients = (html, domain: string) => {
         const amounts = getItemListFromSelector(html, domainToIngredientAmountListSelector[domain])
         const paired = []
         amounts.map((val, idx) => {
-            console.log(val)
             paired.push(val + " " + ingredientNames[idx])
         })
 

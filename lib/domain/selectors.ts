@@ -15,9 +15,10 @@ export const domainToTitleSelector: domainInformationSelector = {
     'bonappetit.com' : 'h1[data-testid="ContentHeaderHed"]',
     'cooking.nytimes.com' : 'h1[class="recipe-title title name"]',
     'epicurious.com' : 'h1[data-testid="ContentHeaderHed"]',
+    'ice.edu' : 'h1',
     'loveandlemons.com' : 'h1[class="entry-title"] > a',
     'simplyrecipes.com' : 'h1[class="heading__title"]',
-    'tasty.com' : 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
+    'tasty.co' : 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
 }
 
 export const domainToIngredientsListSelector: domainInformationSelector = {
@@ -25,9 +26,10 @@ export const domainToIngredientsListSelector: domainInformationSelector = {
     'bonappetit.com' : 'div[data-testid="IngredientList"] > div > div',
     'cooking.nytimes.com' : 'ul[class="recipe-ingredients"] > li',
     'epicurious.com' : 'div[data-testid="IngredientList"] > div > div',
+    'ice.edu' : 'ul > li',
     'loveandlemons.com' : 'ul[class="wprm-recipe-ingredients"] > li',
     'simplyrecipes.com' : 'div[class="comp structured-ingredients"] > ul > li',
-    'tasty.com' : 'div[class="ingredients__section xs-mt1 xs-mb3"] > ul > li',
+    'tasty.co' : 'div[class="ingredients-prep clearfix col"] > div > div > ul > li',
 }
 
 export const domainToIngredientAmountListSelector: domainInformationSelector = {
@@ -39,10 +41,14 @@ export const domainToDirectionsListSelector: domainInformationSelector = {
     'bonappetit.com' : 'div[data-testid="InstructionsWrapper"] > div > div',
     'cooking.nytimes.com' : 'ol[class="recipe-steps"] > li',
     'epicurious.com' : 'div[data-testid="InstructionsWrapper"] > div > div',
+    'ice.edu' : 'ol > li',
     'loveandlemons.com' : 'ul[class="wprm-recipe-instructions"] > li',
     'simplyrecipes.com' : 'section[class="comp section--instructions section"] > div > div > ol > li > p',
-    'tasty.com' : 'div[class="preparation col xs-flex-grow-1 md-col-8 xs-mx2 xs-mb2 xs-mt2 md-mt0"] > ol > li',
+    'tasty.co' : 'div[class="ingredients-prep clearfix col"] > div > ol > li',
 }
 
 // Wishlist:
 // NYTimesCooking has ingredients per item, it'd be cool to group ingredients: https://cooking.nytimes.com/recipes/1018626-eggs-benedict
+// Tasty.co has two copies of the HTML ingredients ?? No idea why, but it needs to be trimmed on processing.
+// scripting overlap https://www.bonappetit.com/recipe/bas-best-chicken-parm
+// not specific enough https://www.ice.edu/blog/chocolate-chip-cookie-recipe-smoke-butter

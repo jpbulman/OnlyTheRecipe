@@ -25,3 +25,28 @@ img {
   max-width: 100%;
   display: block;
 }
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 15px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  background-color: #0070f3;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  height: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0058af;
+}

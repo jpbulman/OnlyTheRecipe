@@ -1,17 +1,24 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Layout from '../../components/layout'
-import { RecipeMetadata } from '../../lib/recipes'
-import { GetOrCreateRecipeEntry } from '../api/recipes'
+import { RecipesQueryParameters } from '.'
+import Layout from '../components/layout'
+import { RecipeMetadata } from '../lib/recipes'
+import { GetOrCreateRecipeEntry } from './api/recipes'
 
 export default function Recipe() {
+    const router = useRouter()
+    const { originalURL } = router.query as RecipesQueryParameters;
+
+    if (!originalURL) return <p>Loading...</p>
+
     const [data, setData] = useState({} as RecipeMetadata)
     const [isLoading, setLoading] = useState(false)
 
     const { ingredients, directions, title } = data
 
     const reqBody: GetOrCreateRecipeEntry = {
-        url: "https://tasty.co/recipe/pizza-dough"
+        url: originalURL,
     }
 
     useEffect(() => {
@@ -41,6 +48,7 @@ export default function Recipe() {
             </Head>
             <div>
                 <h1>{title}</h1>
+                <a href={reqBody.url}>Original Recipe</a>
                 <h1>Ingredients</h1>
                 {ingredients?.map(i => <p>{i}</p>)}
                 <h1>Directions</h1>
