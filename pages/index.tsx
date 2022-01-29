@@ -56,6 +56,7 @@ export default function Home({
         >
           Get The Recipe
         </button>
+        <p>No videos. No ads. No walls of text. Only the recipe.</p>
       </div>
     </Layout>
   )

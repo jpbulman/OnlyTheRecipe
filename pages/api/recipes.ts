@@ -1,8 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getRecipeInformationForURLAsync } from '../../lib/recipes';
+import { getRecipeInformationForURLAsync, RecipeMetadata } from '../../lib/recipes';
 
 export interface GetOrCreateRecipeEntry {
     url: string
+}
+
+const defaultData: RecipeMetadata = {
+    title: '',
+    ingredients: [],
+    directions: [],
 }
 
 export default async (request: NextApiRequest, res: NextApiResponse) => {
@@ -15,6 +21,6 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
         console.error(error)
         console.log(entryRequest)
-        res.status(500).json({})
+        res.status(500).json(defaultData)
     }
 }

@@ -17,7 +17,8 @@ export default function Layout({
   return (
     <div className={styles.container}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        {/* https://css-tricks.com/emoji-as-a-favicon/ */}
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌯</text></svg>"></link>
         <meta
           name="description"
           content="Learn how to build a personal website using Next.js"
@@ -58,11 +59,22 @@ export default function Layout({
           <Link href="/">
             <a>← Back to home</a>
           </Link>
-          <a href="https://www.buymeacoffee.com/jpbulman" target="_blank">
-            <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" 
-                alt="Buy Me A Coffee" 
-                className={utilStyles.coffee} />
-          </a>
+          <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 10 }} >
+            <a style={{ paddingRight: 10}} href="https://www.buymeacoffee.com/jpbulman" target="_blank">
+              <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" 
+                  alt="Buy Me A Coffee" 
+                  className={utilStyles.coffee} />
+            </a>
+            <a href="https://github.com/jpbulman/OnlyTheRecipe" target="_blank">
+              <Image
+                  priority
+                  src="/images/github.png"
+                  width={32}
+                  height={32}
+                  alt="GitHub"
+                />
+            </a>
+          </div>
         </div>
       )}
     </div>

@@ -6,6 +6,28 @@ import Layout from '../components/layout'
 import { RecipeMetadata } from '../lib/recipes'
 import { GetOrCreateRecipeEntry } from './api/recipes'
 
+const isValidRecipeData = (data: RecipeMetadata) => {
+    const { title, ingredients, directions } = data 
+    return title !== "" && ingredients?.length !== 0 && directions?.length !== 0;
+}
+
+const domainNotSupported = () => {
+    return (
+        <Layout>
+            <Head>
+                <title>Recipe Not Supported</title>
+            </Head>
+            <div>
+                <h1>Uh-oh! 🔧</h1>
+                <p>Unfortunately we couldn't parse this recipe. Please open an issue 
+                    <a href="https://github.com/jpbulman/OnlyTheRecipe/issues/new" target="_blank"> here </a>
+                    and someone will try and add support for this recipe!
+                </p>         
+            </div>
+        </Layout>
+    )
+}
+
 export default function Recipe() {
     const router = useRouter()
     const { originalURL } = router.query as RecipesQueryParameters;
@@ -39,7 +61,8 @@ export default function Recipe() {
     }, [])
 
     if (isLoading) return <p>Loading...</p>
-    if (!data) return <p>No profile data</p>
+    console.log(data)
+    if (!isValidRecipeData(data)) return domainNotSupported()
 
     return (
         <Layout>
