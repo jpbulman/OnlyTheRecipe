@@ -13,6 +13,7 @@ export const supportedDomains = [
     'ice.edu',
     'inspiredtaste.net',
     'onceuponachef.com',
+    'pillsbury.com',
     'simplyrecipes.com',
     'tasteofhome.com',
     'tasty.co',
@@ -24,78 +25,119 @@ export const domainIsSupported = (domain: string): boolean => {
     return supportedDomains.find((d) => d === domain) !== undefined
 }
 
-type domainInformationSelector = { [key in typeof supportedDomains[number]]?: string };
-
-export const domainToTitleSelector: domainInformationSelector = {
-    'allrecipes.com' : 'div[class="headline-wrapper"] > h1',
-    'bettycrocker.com' : 'h1[class="rdpTitle"]',
-    'bonappetit.com' : 'h1[data-testid="ContentHeaderHed"]',
-    'budgetbytes.com' : 'h1[class="title"]',
-    'cookingclassy.com' : 'h1[class="title"]',
-    'cooking.nytimes.com' : 'h1[class="recipe-title title name"]',
-    'delish.com' : 'h1[class="content-hed recipe-hed"]',
-    'epicurious.com' : 'h1[data-testid="ContentHeaderHed"]',
-    'foodnetwork.com' : 'section[class="o-AssetTitle"] > h1 > span',
-    'gimmesomeoven.com' : 'h1[class="posttitle"]',
-    'ice.edu' : 'h1',
-    'inspiredtaste.net' : 'div[class="itr-recipe-title"] > h2',
-    'loveandlemons.com' : 'h1[class="entry-title"] > a',
-    'onceuponachef.com' : 'h1[class="title"]',
-    'simplyrecipes.com' : 'h1[class="heading__title"]',
-    'tasteofhome.com' : 'h1[class="recipe-title"]',
-    'tasty.co' : 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
-    'thepioneerwoman.com' : 'h1[class="content-hed recipe-hed"]',
-    'thestayathomechef.com' : 'header[class="article-header"] > h1'
+type recipeSelectorSet = {
+    titleSelector: string,
+    ingredientsSelector: string,
+    ingredientsAmountSelector?: string,
+    directionsSelector: string,
 }
 
-export const domainToIngredientsListSelector: domainInformationSelector = {
-    'allrecipes.com' : 'section[data-tracking-zone="recipe-ingredients"] > fieldset > ul > li',
-    'bettycrocker.com' : 'div[class="rdpIngredients"] > ul > li',
-    'bonappetit.com' : 'div[data-testid="IngredientList"] > div > div',
-    'budgetbytes.com' : 'ul[class="wprm-recipe-ingredients"] > li',
-    'cookingclassy.com' : 'ul[class="wprm-recipe-ingredients"] > li',
-    'cooking.nytimes.com' : 'ul[class="recipe-ingredients"] > li',
-    'delish.com' : 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-description"] > p',
-    'epicurious.com' : 'div[data-testid="IngredientList"] > div > div',
-    'foodnetwork.com' : 'section[class="o-Ingredients"] > div > p',
-    'gimmesomeoven.com' : 'div[class="tasty-recipes-ingredients-body"] > ul > li',
-    'ice.edu' : 'ul > li',
-    'inspiredtaste.net' : 'span[class="itr-ingredients"] > p',
-    'loveandlemons.com' : 'ul[class="wprm-recipe-ingredients"] > li',
-    'onceuponachef.com' : 'div[class="ingredients"] > ul > li > span[class="name"]',
-    'simplyrecipes.com' : 'div[class="comp structured-ingredients"] > ul > li',
-    'tasteofhome.com' : 'div[class="recipe-ingredients"] > ul > li',
-    'tasty.co' : 'div[class="ingredients-prep clearfix col"] > div > div > ul > li',
-    'thepioneerwoman.com' : 'div[class="ingredient-lists"] > div',
-    'thestayathomechef.com' : 'ul[class="wprm-recipe-ingredients"] > li'
-}
+type domainInformationSelector = { [key in typeof supportedDomains[number]]?: recipeSelectorSet };
 
-export const domainToIngredientAmountListSelector: domainInformationSelector = {
-    'bonappetit.com' : 'div[data-testid="IngredientList"] > div > p',
-    'delish.com' : 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-amount"]',
-    'onceuponachef.com' : 'div[class="ingredients"] > ul > li > span[class="amount"]',
-}
-
-export const domainToDirectionsListSelector: domainInformationSelector = {
-    'allrecipes.com' : 'ul[class="instructions-section"] > li',
-    'bettycrocker.com' : 'ul[class="recipeSteps"] > li',
-    'bonappetit.com' : 'div[data-testid="InstructionsWrapper"] > div > div',
-    'budgetbytes.com' : 'ul[class="wprm-recipe-instructions"] > li',
-    'cookingclassy.com' : 'ul[class="wprm-recipe-instructions"] > li',
-    'cooking.nytimes.com' : 'ol[class="recipe-steps"] > li',
-    'delish.com' : 'div[class="direction-lists"] > ol > li',
-    'epicurious.com' : 'div[data-testid="InstructionsWrapper"] > div > div',
-    'foodnetwork.com' : 'section[data-module="recipe-method"] > div > ol > li',
-    'gimmesomeoven.com' : 'div[class="tasty-recipes-instructions-body"] > ol > li',
-    'ice.edu' : 'ol > li',
-    'inspiredtaste.net' : 'span[class="itr-directions"] > p',
-    'loveandlemons.com' : 'ul[class="wprm-recipe-instructions"] > li',
-    'onceuponachef.com' : 'div[class="instructions"] > ol > li',
-    'simplyrecipes.com' : 'section[class="comp section--instructions section"] > div > div > ol > li > p',
-    'tasteofhome.com' : 'ol[class="recipe-directions__list"] > li',
-    'tasty.co' : 'div[class="ingredients-prep clearfix col"] > div > ol > li',
-    'thepioneerwoman.com' : 'div[class="direction-lists"] > ol > li',
-    'thestayathomechef.com' : 'ul[class="wprm-recipe-instructions"] > li'
+export const recipeSelectors: domainInformationSelector = {
+    'allrecipes.com' : {
+        titleSelector: 'div[class="headline-wrapper"] > h1',
+        ingredientsSelector: 'section[data-tracking-zone="recipe-ingredients"] > fieldset > ul > li',
+        directionsSelector: 'ul[class="instructions-section"] > li',
+    },
+    'bettycrocker.com' : {
+        titleSelector: 'h1[class="rdpTitle"]',
+        ingredientsSelector: 'div[class="rdpIngredients"] > ul > li',
+        directionsSelector: 'ul[class="recipeSteps"] > li',
+    },
+    'bonappetit.com' : {
+        titleSelector: 'h1[data-testid="ContentHeaderHed"]',
+        ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
+        ingredientsAmountSelector: 'div[data-testid="IngredientList"] > div > p',
+        directionsSelector: 'div[data-testid="InstructionsWrapper"] > div > div',
+    },
+    'budgetbytes.com' : {
+        titleSelector: 'h1[class="title"]',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'cookingclassy.com' : {
+        titleSelector: 'h1[class="title"]',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'cooking.nytimes.com' : {
+        titleSelector: 'h1[class="recipe-title title name"]',
+        ingredientsSelector: 'ul[class="recipe-ingredients"] > li',
+        directionsSelector: 'ol[class="recipe-steps"] > li',
+    },
+    'delish.com' : {
+        titleSelector: 'h1[class="content-hed recipe-hed"]',
+        ingredientsSelector: 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-description"] > p',
+        ingredientsAmountSelector: 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-amount"]',
+        directionsSelector: 'div[class="direction-lists"] > ol > li',
+    },
+    'epicurious.com' : {
+        titleSelector: 'h1[data-testid="ContentHeaderHed"]',
+        ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
+        directionsSelector: 'div[data-testid="InstructionsWrapper"] > div > div',
+    },
+    'foodnetwork.com' : {
+        titleSelector: 'section[class="o-AssetTitle"] > h1 > span',
+        ingredientsSelector: 'section[class="o-Ingredients"] > div > p',
+        directionsSelector: 'section[data-module="recipe-method"] > div > ol > li',
+    },
+    'gimmesomeoven.com' : {
+        titleSelector: 'h1[class="posttitle"]',
+        ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
+        directionsSelector: 'div[class="tasty-recipes-instructions-body"] > ol > li',
+    },
+    'ice.edu' : {
+        titleSelector: 'h1',
+        ingredientsSelector: 'ul > li',
+        directionsSelector: 'ol > li',
+    },
+    'inspiredtaste.net' : {
+        titleSelector: 'div[class="itr-recipe-title"] > h2',
+        ingredientsSelector: 'span[class="itr-ingredients"] > p',
+        directionsSelector: 'span[class="itr-directions"] > p',
+    },
+    'loveandlemons.com' : {
+        titleSelector: 'h1[class="entry-title"] > a',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'onceuponachef.com' : {
+        titleSelector: 'h1[class="title"]',
+        ingredientsSelector: 'div[class="ingredients"] > ul > li > span[class="name"]',
+        ingredientsAmountSelector: 'div[class="ingredients"] > ul > li > span[class="amount"]',
+        directionsSelector: 'div[class="instructions"] > ol > li',
+    },
+    'pillsbury.com' : {
+        titleSelector: 'h1[class="rdpTitle"]',
+        ingredientsSelector : 'div[class="rdpIngredients"] > ul > li',
+        directionsSelector: 'ul[class="recipeSteps"] > li'
+    },
+    'simplyrecipes.com' : {
+        titleSelector: 'h1[class="heading__title"]',
+        ingredientsSelector: 'div[class="comp structured-ingredients"] > ul > li',
+        directionsSelector: 'section[class="comp section--instructions section"] > div > div > ol > li > p',
+    },
+    'tasteofhome.com' : {
+        titleSelector: 'h1[class="recipe-title"]',
+        ingredientsSelector: 'div[class="recipe-ingredients"] > ul > li',
+        directionsSelector: 'ol[class="recipe-directions__list"] > li',
+    },
+    'tasty.co' : {
+        titleSelector: 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
+        ingredientsSelector: 'div[class="ingredients-prep clearfix col"] > div > div > ul > li',
+        directionsSelector: 'div[class="ingredients-prep clearfix col"] > div > ol > li',
+    },
+    'thepioneerwoman.com' : {
+        titleSelector: 'h1[class="content-hed recipe-hed"]',
+        ingredientsSelector: 'div[class="ingredient-lists"] > div',
+        directionsSelector: 'div[class="direction-lists"] > ol > li',
+    },
+    'thestayathomechef.com' : {
+        titleSelector: 'header[class="article-header"] > h1',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
 }
 
 // Wishlist:

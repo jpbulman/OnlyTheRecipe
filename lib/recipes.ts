@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { defaultRecipeData } from '../pages/api/recipes';
-import { domainIsSupported, domainToDirectionsListSelector, domainToIngredientAmountListSelector, domainToIngredientsListSelector, domainToTitleSelector } from './domain/selectors';
+import { domainIsSupported, recipeSelectors } from './domain/selectors';
 
 export interface RecipeMetadata {
     title: string,
@@ -27,9 +27,10 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
                     }
                 }
 
-                const title = getTitleFromSelector(html, domainToTitleSelector[domain])
+                const { titleSelector, directionsSelector } = recipeSelectors[domain]
+                const title = getTitleFromSelector(html, titleSelector)
                 const ingredients = getIngredients(html, domain)
-                const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
+                const directions = getItemListFromSelector(html, directionsSelector)
 
                 return {
                     title,
@@ -42,10 +43,11 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
 }
 
 const getIngredients = (html, domain: string) => {
-    const ingredientNames = getItemListFromSelector(html, domainToIngredientsListSelector[domain])
+    const { ingredientsSelector, ingredientsAmountSelector } = recipeSelectors[domain]
+    const ingredientNames = getItemListFromSelector(html, ingredientsSelector)
 
-    if (domain in domainToIngredientAmountListSelector) {
-        const amounts = getItemListFromSelector(html, domainToIngredientAmountListSelector[domain])
+    if (ingredientsAmountSelector) {
+        const amounts = getItemListFromSelector(html, ingredientsAmountSelector)
         const paired = []
         amounts.map((val, idx) => {
             paired.push(`${val} ${ingredientNames[idx]}`)
@@ -61,6 +63,7 @@ const getItemListFromSelector = (html, selector: string): string[] => {
     const $ = cheerio.load(html);
 
     const listItems = $(selector);
+    console.log(selector, listItems.length)
     const textValues: string[] = []
     listItems.map((_, element) => {
         textValues.push($(element).text().trim())
@@ -79,7 +82,7 @@ const getDomainFromURL = (url: string) => {
     return urlObj.hostname.replace('www.', '')
 }
 
-const getDirections = (html, domain: string) => {
-    const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
+// const getDirections = (html, domain: string) => {
+//     const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
     
-}
+// }
