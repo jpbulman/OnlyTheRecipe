@@ -5,10 +5,11 @@ export interface GetOrCreateRecipeEntry {
     url: string
 }
 
-const defaultData: RecipeMetadata = {
+export const defaultRecipeData: RecipeMetadata = {
     title: '',
     ingredients: [],
     directions: [],
+    domainIsSupported: true,
 }
 
 export default async (request: NextApiRequest, res: NextApiResponse) => {
@@ -19,8 +20,7 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
         const data = await getRecipeInformationForURLAsync(entryRequest.url);
         res.status(200).json(data)
     } catch (error) {
-        console.error(error)
         console.log(entryRequest)
-        res.status(500).json(defaultData)
+        res.status(208).json(defaultRecipeData)
     }
 }

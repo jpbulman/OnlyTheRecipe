@@ -72,3 +72,4 @@ export const domainToDirectionsListSelector: domainInformationSelector = {
 // Tasty.co has two copies of the HTML ingredients ?? No idea why, but it needs to be trimmed on processing.
 // scripting overlap https://www.bonappetit.com/recipe/bas-best-chicken-parm
 // not specific enough https://www.ice.edu/blog/chocolate-chip-cookie-recipe-smoke-butter
+// https://www.bonappetit.com/recipe/bas-best-chicken-parm -- ingredients are botched

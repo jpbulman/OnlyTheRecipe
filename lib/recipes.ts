@@ -1,11 +1,13 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { domainToDirectionsListSelector, domainToIngredientAmountListSelector, domainToIngredientsListSelector, domainToTitleSelector } from './domain/selectors';
+import { defaultRecipeData } from '../pages/api/recipes';
+import { domainIsSupported, domainToDirectionsListSelector, domainToIngredientAmountListSelector, domainToIngredientsListSelector, domainToTitleSelector } from './domain/selectors';
 
 export interface RecipeMetadata {
     title: string,
     ingredients: string[],
     directions: string[],
+    domainIsSupported: boolean,
 }
 
 //onlytherecipe.org
@@ -18,6 +20,13 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
                 const html = response.data;
                 const domain = getDomainFromURL(url)
 
+                if (!domainIsSupported(domain)) {
+                    return {
+                        ...defaultRecipeData,
+                        domainIsSupported: false,
+                    }
+                }
+
                 const title = getTitleFromSelector(html, domainToTitleSelector[domain])
                 const ingredients = getIngredients(html, domain)
                 const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
@@ -26,6 +35,7 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
                     title,
                     ingredients,
                     directions,
+                    domainIsSupported: true,
                 }
             }
         )
@@ -38,7 +48,7 @@ const getIngredients = (html, domain: string) => {
         const amounts = getItemListFromSelector(html, domainToIngredientAmountListSelector[domain])
         const paired = []
         amounts.map((val, idx) => {
-            paired.push(val + " " + ingredientNames[idx])
+            paired.push(`${val} ${ingredientNames[idx]}`)
         })
 
         return paired
@@ -67,4 +77,9 @@ const getTitleFromSelector = (html, selector: string): string => {
 const getDomainFromURL = (url: string) => {
     const urlObj = new URL(url)
     return urlObj.hostname.replace('www.', '')
+}
+
+const getDirections = (html, domain: string) => {
+    const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
+    
 }
