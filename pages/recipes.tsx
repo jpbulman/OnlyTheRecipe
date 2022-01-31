@@ -63,6 +63,7 @@ export default function Recipe() {
 
     if (isLoading) return <p>Loading...</p>
     if (!domainIsSupported) return domainNotSupported(originalURL)
+    console.log(ingredients)
 
     return (
         <Layout>
@@ -73,7 +74,14 @@ export default function Recipe() {
                 <h1>{title}</h1>
                 <a href={originalURL} target="_blank">Original Recipe</a>
                 <h1>Ingredients</h1>
-                {ingredients.map((ingredient, idx) => <p key={`${ingredient}-${idx}`}>{ingredient}</p>)}
+                { ingredients.map((section, idx) => 
+                    (
+                        <>
+                            <h3 key={`${section.sectionName}-${idx}`}>{section.sectionName}</h3>
+                            { section.ingredients.map((val, i) => <p key={`${val}-${i}}`}>{val}</p>) }
+                        </>
+                    )
+                )}
                 <h1>Directions</h1>
                 {directions.map((direction, idx) => <p key={`${direction}-${idx}`}>{direction}</p>)}
             </div>

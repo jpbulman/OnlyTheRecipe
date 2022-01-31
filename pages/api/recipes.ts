@@ -21,6 +21,7 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json(data)
     } catch (error) {
         console.log(entryRequest)
+        console.log(error)
         res.status(208).json(defaultRecipeData)
     }
 }

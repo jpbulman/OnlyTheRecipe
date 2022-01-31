@@ -1,6 +1,7 @@
 export const supportedDomains = [
     'allrecipes.com',
     'bettycrocker.com',
+    'blueberry.org',
     'bonappetit.com',
     'budgetbytes.com',
     'cookingclassy.com',
@@ -14,6 +15,7 @@ export const supportedDomains = [
     'inspiredtaste.net',
     'onceuponachef.com',
     'pillsbury.com',
+    'sallysbakingaddiction.com',
     'simplyrecipes.com',
     'tasteofhome.com',
     'tasty.co',
@@ -23,6 +25,14 @@ export const supportedDomains = [
 
 export const domainIsSupported = (domain: string): boolean => {
     return supportedDomains.find((d) => d === domain) !== undefined
+}
+
+export const annoyingToParseDomains = [
+    'bonappetit.com',
+] as const;
+
+export const domainIsAnnoyingToParse = (domain: string): boolean => {
+    return annoyingToParseDomains.find((d) => d === domain) !== undefined
 }
 
 type recipeSelectorSet = {
@@ -45,11 +55,10 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'div[class="rdpIngredients"] > ul > li',
         directionsSelector: 'ul[class="recipeSteps"] > li',
     },
-    'bonappetit.com' : {
-        titleSelector: 'h1[data-testid="ContentHeaderHed"]',
-        ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
-        ingredientsAmountSelector: 'div[data-testid="IngredientList"] > div > p',
-        directionsSelector: 'div[data-testid="InstructionsWrapper"] > div > div',
+    'blueberry.org' : {
+        titleSelector: 'h1[itemprop="name"]',
+        ingredientsSelector: 'div[class="ingredients"] > ul > li',
+        directionsSelector: 'section[itemprop="recipeInstructions"] > div > ol > li',
     },
     'budgetbytes.com' : {
         titleSelector: 'h1[class="title"]',
@@ -113,6 +122,11 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector : 'div[class="rdpIngredients"] > ul > li',
         directionsSelector: 'ul[class="recipeSteps"] > li'
     },
+    'sallysbakingaddiction.com' : {
+        titleSelector: 'h2[class="tasty-recipes-title"]',
+        ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
+        directionsSelector: 'div[class="tasty-recipes-instructions-body"] > ol > li'
+    },
     'simplyrecipes.com' : {
         titleSelector: 'h1[class="heading__title"]',
         ingredientsSelector: 'div[class="comp structured-ingredients"] > ul > li',
@@ -144,9 +158,7 @@ export const recipeSelectors: domainInformationSelector = {
 // NYTimesCooking has ingredients per item, it'd be cool to group ingredients: https://cooking.nytimes.com/recipes/1018626-eggs-benedict
 //                                                                             https://www.cookingclassy.com/chicken-curry/
 // Tasty.co has two copies of the HTML ingredients ?? No idea why, but it needs to be trimmed on processing.
-// scripting overlap https://www.bonappetit.com/recipe/bas-best-chicken-parm
 // not specific enough https://www.ice.edu/blog/chocolate-chip-cookie-recipe-smoke-butter
-// https://www.bonappetit.com/recipe/bas-best-chicken-parm -- ingredients are botched
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com
 // 
