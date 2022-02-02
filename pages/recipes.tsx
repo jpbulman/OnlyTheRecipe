@@ -78,12 +78,12 @@ export default function Recipe() {
                     (
                         <>
                             <h3 key={`${section.sectionName}-${idx}`}>{section.sectionName}</h3>
-                            { section.ingredients.map((val, i) => <p key={`${val}-${i}}`}>{val}</p>) }
+                            { section.ingredients?.map((val, i) => <p key={`${val}-${i}}`}>{val}</p>) }
                         </>
                     )
                 )}
                 <h1>Directions</h1>
-                {directions.map((direction, idx) => <p key={`${direction}-${idx}`}>{direction}</p>)}
+                { directions.map((direction, idx) => <p key={`${direction}-${idx}`}>{direction}</p>) }
             </div>
         </Layout>
     )

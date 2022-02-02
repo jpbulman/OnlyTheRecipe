@@ -1,9 +1,11 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
+import { writeFile } from 'fs';
 import { defaultRecipeData } from '../pages/api/recipes';
-import { annoyingToParseDomains, domainIsAnnoyingToParse, domainIsSupported, recipeSelectors } from './domain/selectors';
+import { selectionFunctionPerAnnoyingDomain } from './domain/annoyingDomains';
+import { domainIsAnnoyingToParse, domainIsSupported, recipeSelectors } from './domain/selectors';
 
-type IngredientsSection = {
+export type IngredientsSection = {
     sectionName: string,
     ingredients: string[],
 }
@@ -55,63 +57,7 @@ const getRecipeDataForDomain = (domain: string, html): RecipeMetadata => {
     }
 }
 
-const getBonAppetitData = (html: string): RecipeMetadata => {
-    const title = getTitleFromSelector(html, 'h1[data-testid="ContentHeaderHed"]')
-
-    const $ = cheerio.load(html);
-    const ingredientsBlock = $('div[data-testid="IngredientList"] > div > ');
-
-    const ingredientSections: IngredientsSection[] = []
-    let currIngredientSectionName = ''
-    let ingredientAmounts = []
-    let ingredientNames = []
-
-    ingredientsBlock.map((_, element) => {
-        const className = $(element).attr('class')
-        const elementText = $(element).text().trim()
-
-        if (className.includes('SubHed')) {
-            if (currIngredientSectionName !== '') {
-                ingredientSections.push({
-                    sectionName: currIngredientSectionName,
-                    ingredients: combineIngredientNamesAndAmounts(ingredientNames, ingredientAmounts)
-                })
-                ingredientAmounts = []
-                ingredientNames = []
-            }
-
-            currIngredientSectionName = elementText
-        } else if (className.includes('Amount')) {
-            ingredientAmounts.push(elementText)
-        } else {
-            ingredientNames.push(elementText)
-        }
-    });
-
-    ingredientSections.push({
-        sectionName: currIngredientSectionName,
-        ingredients: combineIngredientNamesAndAmounts(ingredientNames, ingredientAmounts)
-    })
-
-    const directionsBlock = getItemListFromSelector(html, 'div[data-testid="InstructionsWrapper"] > div > div > div > div > p');
-
-    return {
-        title,
-        ingredients: ingredientSections,
-        directions: directionsBlock,
-        domainIsSupported: true,
-    }
-} 
-
-type annoyingDomainToSelectionFunction = {
-    [key in typeof annoyingToParseDomains[number]]: (html: string) => RecipeMetadata
-}
-
-const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunction = {
-    'bonappetit.com' : getBonAppetitData
-}
-
-const combineIngredientNamesAndAmounts = (names: string[], amounts: string[]): string[] => {
+export const combineIngredientNamesAndAmounts = (names: string[], amounts: string[]): string[] => {
     return amounts.map((val, idx) => `${val} ${names[idx]}`)
 }
 
@@ -129,7 +75,7 @@ const getIngredients = (html, domain: string): IngredientsSection[] => {
     }
 }
 
-const getItemListFromSelector = (html, selector: string): string[] => {
+export const getItemListFromSelector = (html, selector: string): string[] => {
     const $ = cheerio.load(html);
 
     const listItems = $(selector);
@@ -141,7 +87,7 @@ const getItemListFromSelector = (html, selector: string): string[] => {
     return textValues
 }
 
-const getTitleFromSelector = (html, selector: string): string => {
+export const getTitleFromSelector = (html, selector: string): string => {
     const $ = cheerio.load(html);
     return $(selector).text().trim();
 }
@@ -150,8 +96,3 @@ const getDomainFromURL = (url: string) => {
     const urlObj = new URL(url)
     return urlObj.hostname.replace('www.', '')
 }
-
-// const getDirections = (html, domain: string) => {
-//     const directions = getItemListFromSelector(html, domainToDirectionsListSelector[domain])
-    
-// }

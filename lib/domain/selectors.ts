@@ -29,6 +29,8 @@ export const domainIsSupported = (domain: string): boolean => {
 
 export const annoyingToParseDomains = [
     'bonappetit.com',
+    'cooking.nytimes.com',
+    'tasty.co',
 ] as const;
 
 export const domainIsAnnoyingToParse = (domain: string): boolean => {
@@ -70,11 +72,6 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
     },
-    'cooking.nytimes.com' : {
-        titleSelector: 'h1[class="recipe-title title name"]',
-        ingredientsSelector: 'ul[class="recipe-ingredients"] > li',
-        directionsSelector: 'ol[class="recipe-steps"] > li',
-    },
     'delish.com' : {
         titleSelector: 'h1[class="content-hed recipe-hed"]',
         ingredientsSelector: 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-description"] > p',
@@ -98,7 +95,7 @@ export const recipeSelectors: domainInformationSelector = {
     },
     'ice.edu' : {
         titleSelector: 'h1',
-        ingredientsSelector: 'ul > li',
+        ingredientsSelector: 'section[class="wysiwyg"] > ul > li',
         directionsSelector: 'ol > li',
     },
     'inspiredtaste.net' : {
@@ -155,11 +152,6 @@ export const recipeSelectors: domainInformationSelector = {
 }
 
 // Wishlist:
-// NYTimesCooking has ingredients per item, it'd be cool to group ingredients: https://cooking.nytimes.com/recipes/1018626-eggs-benedict
-//                                                                             https://www.cookingclassy.com/chicken-curry/
 // Tasty.co has two copies of the HTML ingredients ?? No idea why, but it needs to be trimmed on processing.
-// not specific enough https://www.ice.edu/blog/chocolate-chip-cookie-recipe-smoke-butter
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com
-// 
-// unify into one selector object with sub objects for each domain
