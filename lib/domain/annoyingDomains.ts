@@ -102,12 +102,25 @@ const getTastyCoData = (html: string): RecipeMetadata => {
     const title = $('h1').text().trim()
 
     const divs = $('div');
-    const ingredientWrapper = divs.filter((_, d) => $(d).attr('class')?.includes("ingredients__section"))
+    const ingredientWrappers = divs.filter((_, d) => $(d).attr('class')?.includes("ingredients__section"))
 
     // For some reason there are two copies in of each ingredient
-    const ingredientsSet = new Set<string>()
-    $(ingredientWrapper).find('li').map((idx, el) => {
-        ingredientsSet.add($(el).text().trim())
+    const sectionsStringSet = new Set<string>()
+    const ingredientsSections: IngredientsSection[] = []
+    ingredientWrappers.map((_, el) => {
+        const currIngs: string[] = []
+        $(el).find('li').map((idx, el) => {
+            currIngs.push($(el).text().trim())
+        })
+        const currSection: IngredientsSection = {
+            sectionName: $(el).find('p').text().trim(),
+            ingredients: currIngs
+        }
+        const sectionString = JSON.stringify(currSection)
+        if (!sectionsStringSet.has(sectionString)) {
+            ingredientsSections.push(currSection)
+            sectionsStringSet.add(sectionString)
+        }
     })
 
     const directionsList = $('ol > li')
@@ -118,10 +131,7 @@ const getTastyCoData = (html: string): RecipeMetadata => {
 
     return {
         title,
-        ingredients: [{
-            sectionName: '',
-            ingredients: Array.from(ingredientsSet),
-        }],
+        ingredients: ingredientsSections,
         directions: Array.from(directionsSet),
         domainIsSupported: true,
     }

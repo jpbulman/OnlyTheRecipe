@@ -152,6 +152,5 @@ export const recipeSelectors: domainInformationSelector = {
 }
 
 // Wishlist:
-// Tasty.co has two copies of the HTML ingredients ?? No idea why, but it needs to be trimmed on processing.
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com
