@@ -1,6 +1,5 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { writeFile } from 'fs';
 import { defaultRecipeData } from '../pages/api/recipes';
 import { selectionFunctionPerAnnoyingDomain } from './domain/annoyingDomains';
 import { domainIsAnnoyingToParse, domainIsSupported, recipeSelectors } from './domain/selectors';

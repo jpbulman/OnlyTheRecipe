@@ -151,6 +151,5 @@ export const recipeSelectors: domainInformationSelector = {
     },
 }
 
-// Wishlist:
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com

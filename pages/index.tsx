@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
 import { GetStaticProps } from 'next'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
@@ -10,15 +9,7 @@ export type RecipesQueryParameters = {
   originalURL: string,
 }
 
-export default function Home({
-  allPostsData
-}: {
-  allPostsData: {
-    date: string
-    title: string
-    id: string
-  }[]
-}) {
+export default function Home() {
   const router = useRouter()
   const [inputValue, setInputValue] = useState("")
 
@@ -63,10 +54,8 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
   return {
     props: {
-      allPostsData
     }
   }
 }
