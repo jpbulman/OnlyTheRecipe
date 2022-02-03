@@ -16,21 +16,40 @@ export interface RecipeMetadata {
     domainIsSupported: boolean,
 }
 
+// https://stackoverflow.com/a/43467144/7355232
+function isValidHttpUrl(string) {
+    let url: URL;
+    
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;  
+    }
+  
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
 //onlytherecipe.org
 export async function getRecipeInformationForURLAsync(url: string): Promise<RecipeMetadata> {
     const AxiosInstance = axios.create();
+    const domainNotSupported = {
+        ...defaultRecipeData,
+        domainIsSupported: false,
+    }
+
+    if (!isValidHttpUrl(url)) {
+        return domainNotSupported
+    }
 
     return AxiosInstance.get(url)
         .then(
             response => {
                 const html = response.data;
                 const domain = getDomainFromURL(url)
+                console.log(domain)
 
                 if (!domainIsSupported(domain)) {
-                    return {
-                        ...defaultRecipeData,
-                        domainIsSupported: false,
-                    }
+                    return domainNotSupported
                 }
 
                 return getRecipeDataForDomain(domain, html)
@@ -91,7 +110,7 @@ export const getTitleFromSelector = (html, selector: string): string => {
     return $(selector).text().trim();
 }
 
-const getDomainFromURL = (url: string) => {
+const getDomainFromURL = (url: string): string => {
     const urlObj = new URL(url)
     return urlObj.hostname.replace('www.', '')
 }

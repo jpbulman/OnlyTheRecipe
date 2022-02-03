@@ -14,9 +14,9 @@ const domainNotSupported = (url: string) => {
             <div>
                 <a href={url} target="_blank">Original URL</a>
                 <h1>Uh-oh! 🔧</h1>
-                <p>Unfortunately we couldn't parse this recipe. Please open an issue 
+                <p>Unfortunately we couldn't parse this recipe. Please open an issue
                     <a href="https://github.com/jpbulman/OnlyTheRecipe/issues/new" target="_blank"> here </a>
-                    and someone will try and add support for this recipe!
+                    (make sure to include the recipe URL!) and someone will try and add support for this recipe!
                 </p>         
             </div>
         </Layout>
@@ -63,7 +63,6 @@ export default function Recipe() {
 
     if (isLoading) return <p>Loading...</p>
     if (!domainIsSupported) return domainNotSupported(originalURL)
-    console.log(ingredients)
 
     return (
         <Layout>

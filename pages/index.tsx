@@ -35,7 +35,6 @@ export default function Home() {
         <input
           id="recipeLinkInput"
           type="text"
-          required
           placeholder="Recipe URL"
           onChange={(e: React.FormEvent<HTMLInputElement>) => { setInputValue(e.currentTarget.value) }}
           onKeyDown={keyDown}

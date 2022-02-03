@@ -7,20 +7,26 @@ export const supportedDomains = [
     'cookingclassy.com',
     'cooking.nytimes.com',
     'delish.com',
+    // 'eatwell101.com',
     'epicurious.com',
     'foodnetwork.com',
     'gimmesomeoven.com',
-    'loveandlemons.com',
     'ice.edu',
     'inspiredtaste.net',
+    'littlesweetbaker.com',
+    'loveandlemons.com',
+    'natashaskitchen.com',
     'onceuponachef.com',
     'pillsbury.com',
+    'pinchofyum.com',
     'sallysbakingaddiction.com',
     'simplyrecipes.com',
+    'spendwithpennies.com',
     'tasteofhome.com',
     'tasty.co',
     'thepioneerwoman.com',
     'thestayathomechef.com',
+    'whatsgabycooking.com',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -78,6 +84,11 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsAmountSelector: 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-amount"]',
         directionsSelector: 'div[class="direction-lists"] > ol > li',
     },
+    // 'eatwell101.com' : {
+    //     titleSelector: 'h1[class="entry-title black bold"]',
+    //     ingredientsSelector: 'div[id="rco"] > ul > li',
+    //     directionsSelector: 'div[class="dr"] > p',
+    // },
     'epicurious.com' : {
         titleSelector: 'h1[data-testid="ContentHeaderHed"]',
         ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
@@ -103,10 +114,20 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'span[class="itr-ingredients"] > p',
         directionsSelector: 'span[class="itr-directions"] > p',
     },
+    'littlesweetbaker.com' : {
+        titleSelector: 'h2[class="tasty-recipes-title"]',
+        ingredientsSelector: 'div[class="tasty-recipes-ingredients"] > div > ul > li',
+        directionsSelector: 'div[class="tasty-recipes-instructions"] > div > ol > li',
+    },
     'loveandlemons.com' : {
         titleSelector: 'h1[class="entry-title"] > a',
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'natashaskitchen.com' : {
+        titleSelector: 'h2[class="wprm-recipe-name"]',
+        ingredientsSelector: 'div[class="wprm-recipe-ingredient-group"] > ul > li',
+        directionsSelector: 'div[class="wprm-recipe-instruction-group"] > ol > li',
     },
     'onceuponachef.com' : {
         titleSelector: 'h1[class="title"]',
@@ -119,6 +140,11 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector : 'div[class="rdpIngredients"] > ul > li',
         directionsSelector: 'ul[class="recipeSteps"] > li'
     },
+    'pinchofyum.com' : {
+        titleSelector: 'h2[class="tasty-recipes-title"]',
+        ingredientsSelector: 'div[class="tasty-recipes-ingredients"] > div > ul > li',
+        directionsSelector: 'div[class="tasty-recipes-instructions"] > div > ol > li'
+    },
     'sallysbakingaddiction.com' : {
         titleSelector: 'h2[class="tasty-recipes-title"]',
         ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
@@ -128,6 +154,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="heading__title"]',
         ingredientsSelector: 'div[class="comp structured-ingredients"] > ul > li',
         directionsSelector: 'section[class="comp section--instructions section"] > div > div > ol > li > p',
+    },
+    'spendwithpennies.com' : {
+        titleSelector: 'h1[class="entry-title"]',
+        ingredientsSelector: 'div[class="wprm-recipe-ingredient-group"] > ul > li',
+        directionsSelector: 'div[class="wprm-recipe-instruction-group"] > ul > li',
     },
     'tasteofhome.com' : {
         titleSelector: 'h1[class="recipe-title"]',
@@ -149,7 +180,15 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
     },
+    'whatsgabycooking.com' : {
+        titleSelector: 'h1[class="entry-title"]',
+        ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
+        directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
+    },
 }
 
+// Wishlist
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com
+// get rid of silly unicode checkboxes: https://www.spendwithpennies.com/easy-meatball-recipe/
+// https://www.eatwell101.com   
