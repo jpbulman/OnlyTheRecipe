@@ -32,14 +32,16 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <div className={utilStyles.recipeInputWrapper}>
-        <input
-          id="recipeLinkInput"
-          type="text"
-          placeholder="Recipe URL"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value) }
-          onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)}
-          onKeyDown={keyDown}
-        />
+        <form style={{width: '100%'}}>
+          <input
+            id="recipeLinkInput"
+            type="text"
+            placeholder="Recipe URL"
+            onChange={(e: React.FormEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value) }
+            onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)}
+            onKeyDown={keyDown}
+          />
+        </form>
         <button
           type="submit"
           style={{ marginTop : 15 }}
