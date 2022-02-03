@@ -36,7 +36,8 @@ export default function Home() {
           id="recipeLinkInput"
           type="text"
           placeholder="Recipe URL"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => { setInputValue(e.currentTarget.value) }}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value) }
+          onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)}
           onKeyDown={keyDown}
         />
         <button
