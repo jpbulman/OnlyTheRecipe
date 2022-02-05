@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { GetStaticProps } from 'next'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -22,6 +21,7 @@ export default function Home() {
 
   const keyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
+      e.preventDefault()
       submitRecipe()
     }
   }
@@ -38,7 +38,6 @@ export default function Home() {
             type="text"
             placeholder="Recipe URL"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value) }
-            onPaste={(e: React.ClipboardEvent<HTMLInputElement>) => setInputValue(e.currentTarget.value)}
             onKeyDown={keyDown}
           />
         </form>
@@ -53,11 +52,4 @@ export default function Home() {
       </div>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {
-    }
-  }
 }

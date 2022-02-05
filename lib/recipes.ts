@@ -37,7 +37,8 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
         domainIsSupported: false,
     }
 
-    if (!isValidHttpUrl(url)) {
+    const domain = getDomainFromURL(url)
+    if (!isValidHttpUrl(url) || !domainIsSupported(domain)) {
         return domainNotSupported
     }
 
@@ -45,12 +46,6 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
         .then(
             response => {
                 const html = response.data;
-                const domain = getDomainFromURL(url)
-                console.log(domain)
-
-                if (!domainIsSupported(domain)) {
-                    return domainNotSupported
-                }
 
                 return getRecipeDataForDomain(domain, html)
             }
