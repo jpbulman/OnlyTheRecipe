@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import React, { useState } from 'react'
@@ -49,6 +50,22 @@ export default function Home() {
           Get The Recipe
         </button>
         <p>No videos. No ads. No walls of text. Only the recipe.</p>
+        <div style={{ display: 'flex', flexDirection: 'row', bottom: 0, position: 'fixed', paddingBottom: 15, }} >
+            <a style={{ paddingRight: 10}} href="https://www.buymeacoffee.com/jpbulman" target="_blank">
+              <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" 
+                  alt="Buy Me A Coffee" 
+                  className={utilStyles.coffee} />
+            </a>
+            <a href="https://github.com/jpbulman/OnlyTheRecipe" target="_blank">
+              <Image
+                  priority
+                  src="/images/github.png"
+                  width={32}
+                  height={32}
+                  alt="GitHub"
+                />
+            </a>
+          </div>
       </div>
     </Layout>
   )
