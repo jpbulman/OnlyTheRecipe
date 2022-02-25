@@ -13,6 +13,8 @@ export const supportedDomains = [
     'gimmesomeoven.com',
     'ice.edu',
     'inspiredtaste.net',
+    'justonecookbook.com',
+    'kingarthurbaking.com',
     'littlesweetbaker.com',
     'loveandlemons.com',
     'natashaskitchen.com',
@@ -113,6 +115,16 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'div[class="itr-recipe-title"] > h2',
         ingredientsSelector: 'span[class="itr-ingredients"] > p',
         directionsSelector: 'span[class="itr-directions"] > p',
+    },
+    'justonecookbook.com' : {
+        titleSelector: 'h1[class="entry-title"]',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
+    },
+    'kingarthurbaking.com' :{
+        titleSelector: 'title',
+        ingredientsSelector: 'div[class="ingredient-section"] > ul > li',
+        directionsSelector: 'article[class="recipe__instructions"] > div > ol > li > p'
     },
     'littlesweetbaker.com' : {
         titleSelector: 'h2[class="tasty-recipes-title"]',
