@@ -40,6 +40,7 @@ export const annoyingToParseDomains = [
     'bonappetit.com',
     'cooking.nytimes.com',
     'tasty.co',
+    'chefkoch.de',
 ] as const;
 
 export const domainIsAnnoyingToParse = (domain: string): boolean => {
@@ -197,11 +198,6 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="entry-title"]',
         ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
         directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
-    },
-    'chefkoch.de' : {
-        titleSelector: 'main.ds-container h1',
-        ingredientsSelector: '.ingredients tr',
-        directionsSelector: '.ds-recipe-meta + div',
     },
 }
 

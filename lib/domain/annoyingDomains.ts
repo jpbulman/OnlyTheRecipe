@@ -137,6 +137,40 @@ const getTastyCoData = (html: string): RecipeMetadata => {
     }
 }
 
+const getChefkochData = (html: string): RecipeMetadata => {
+    const title = getTitleFromSelector(html, 'main.ds-container h1');
+    const $ = cheerio.load(html);
+    const ingredientsBlock = $('.ingredients');
+    const ingredientSections: IngredientsSection[] = [];
+
+    ingredientsBlock.map((_, element) => {
+        const ingredientSectionName = $(element).find('th[colspan="2"] h3').text().trim();
+        const ingredientAmounts = [];
+        const ingredientNames = [];
+        $(element).find('tr td').map((index, element) => {
+            const text = $(element).text().trim();
+            if (index % 2 === 0) {
+                ingredientAmounts.push(text);
+            }
+            else {
+                ingredientNames.push(text);
+            }
+        });
+        ingredientSections.push({
+            sectionName: ingredientSectionName,
+            ingredients: combineIngredientNamesAndAmounts(ingredientNames, ingredientAmounts),
+        });
+    });
+
+    const directionsBlock = $('.ds-recipe-meta + div').text().trim().split('\n\n');
+    return {
+        title,
+        ingredients: ingredientSections,
+        directions: directionsBlock,
+        domainIsSupported: true,
+    }
+}
+
 type annoyingDomainToSelectionFunction = {
     [key in typeof annoyingToParseDomains[number]]: (html: string) => RecipeMetadata
 }
@@ -145,4 +179,5 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'bonappetit.com' : getBonAppetitData,
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
+    'chefkoch.de' : getChefkochData,
 }
