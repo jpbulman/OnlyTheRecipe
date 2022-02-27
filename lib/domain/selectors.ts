@@ -11,6 +11,7 @@ export const supportedDomains = [
     'epicurious.com',
     'foodnetwork.com',
     'gimmesomeoven.com',
+    'howtobbqright.com',
     'ice.edu',
     'inspiredtaste.net',
     'justonecookbook.com',
@@ -108,6 +109,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="posttitle"]',
         ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
         directionsSelector: 'div[class="tasty-recipes-instructions-body"] > ol > li',
+    },
+    'howtobbqright.com' : {
+        titleSelector: 'h1',
+        ingredientsSelector: 'div.tasty-recipes-ingredients > div > ul > li',
+        directionsSelector: 'div.tasty-recipes-instructions > div > ol > li'
     },
     'ice.edu' : {
         titleSelector: 'h1',
