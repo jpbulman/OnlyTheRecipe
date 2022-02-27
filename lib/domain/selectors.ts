@@ -13,6 +13,7 @@ export const supportedDomains = [
     'gimmesomeoven.com',
     'ice.edu',
     'inspiredtaste.net',
+    'joyfoodsunshine.com',
     'justonecookbook.com',
     'kingarthurbaking.com',
     'littlesweetbaker.com',
@@ -37,6 +38,7 @@ export const domainIsSupported = (domain: string): boolean => {
 
 export const annoyingToParseDomains = [
     'bonappetit.com',
+    'joyfoodsunshine.com',
     'cooking.nytimes.com',
     'tasty.co',
 ] as const;
