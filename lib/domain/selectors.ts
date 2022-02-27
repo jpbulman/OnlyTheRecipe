@@ -6,6 +6,7 @@ export const supportedDomains = [
     'budgetbytes.com',
     'cookingclassy.com',
     'cooking.nytimes.com',
+    'christinascucina.com',
     'delish.com',
     // 'eatwell101.com',
     'epicurious.com',
@@ -79,6 +80,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="title"]',
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'christinascucina.com' : {
+        titleSelector: 'h2.mv-create-title',
+        ingredientsSelector: 'div.mv-create-ingredients > ul > li',
+        directionsSelector: 'div.mv-create-instructions > ol > li'
     },
     'delish.com' : {
         titleSelector: 'h1[class="content-hed recipe-hed"]',
