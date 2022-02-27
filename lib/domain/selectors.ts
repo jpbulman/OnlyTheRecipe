@@ -25,6 +25,7 @@ export const supportedDomains = [
     'onceuponachef.com',
     'pillsbury.com',
     'pinchofyum.com',
+    'reseptitaivas.fi',
     'sallysbakingaddiction.com',
     'simplyrecipes.com',
     'spendwithpennies.com',
@@ -179,6 +180,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h2[class="tasty-recipes-title"]',
         ingredientsSelector: 'div[class="tasty-recipes-ingredients"] > div > ul > li',
         directionsSelector: 'div[class="tasty-recipes-instructions"] > div > ol > li'
+    },
+    'reseptitaivas.fi' : {
+        titleSelector: 'h1.post-title',
+        ingredientsSelector: 'div.post-content > ul > li',
+        directionsSelector: 'div.post-content > p:not(*[class="mobile-hidden"])'
     },
     'sallysbakingaddiction.com' : {
         titleSelector: 'h2[class="tasty-recipes-title"]',
