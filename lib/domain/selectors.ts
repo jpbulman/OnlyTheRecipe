@@ -84,7 +84,7 @@ export const recipeSelectors: domainInformationSelector = {
     'christinascucina.com' : {
         titleSelector: 'h2.mv-create-title',
         ingredientsSelector: 'div.mv-create-ingredients > ul > li',
-        directionsSelector: 'div.mv-create-instructions > ol > li'
+        directionsSelector: 'div.mv-create-instructions li, div.mv-create-instructions *:header:not(*[class~="mv-create-instructions-title"])'
     },
     'delish.com' : {
         titleSelector: 'h1[class="content-hed recipe-hed"]',
