@@ -1,5 +1,6 @@
 export const supportedDomains = [
     'allrecipes.com',
+    'bbcgoodfood.com',
     'bettycrocker.com',
     'blueberry.org',
     'bonappetit.com',
@@ -66,6 +67,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'div[class="headline-wrapper"] > h1',
         ingredientsSelector: 'section[data-tracking-zone="recipe-ingredients"] > fieldset > ul > li',
         directionsSelector: 'ul[class="instructions-section"] > li',
+    },
+    'bbcgoodfood.com': {
+        titleSelector: 'h1[class="heading-1"]',
+        ingredientsSelector: 'section.recipe__ingredients ul li',
+        directionsSelector: 'section.recipe__method-steps ul li',
     },
     'bettycrocker.com' : {
         titleSelector: 'h1[class="rdpTitle"]',
