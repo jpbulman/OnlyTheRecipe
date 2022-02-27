@@ -22,6 +22,7 @@ export const supportedDomains = [
     'pillsbury.com',
     'pinchofyum.com',
     'sallysbakingaddiction.com',
+    'seriouseats.com',
     'simplyrecipes.com',
     'spendwithpennies.com',
     'tasteofhome.com',
@@ -29,7 +30,6 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
-    'seriouseats.com',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -163,6 +163,11 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
         directionsSelector: 'div[class="tasty-recipes-instructions-body"] > ol > li'
     },
+    'seriouseats.com' : {
+        titleSelector: 'h1.heading__title',
+        ingredientsSelector: '.section--ingredients .structured-ingredients__list-item',
+        directionsSelector: '.section--instructions ol > li > p',
+    },
     'simplyrecipes.com' : {
         titleSelector: 'h1[class="heading__title"]',
         ingredientsSelector: 'div[class="comp structured-ingredients"] > ul > li',
@@ -197,11 +202,6 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="entry-title"]',
         ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
         directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
-    },
-    'seriouseats.com' : {
-        titleSelector: 'h1.heading__title',
-        ingredientsSelector: '.section--ingredients .structured-ingredients__list-item',
-        directionsSelector: '.section--instructions ol > li > p',
     },
 }
 
