@@ -39,6 +39,7 @@ export const domainIsSupported = (domain: string): boolean => {
 export const annoyingToParseDomains = [
     'bonappetit.com',
     'cooking.nytimes.com',
+    'seriouseats.com',
     'tasty.co',
 ] as const;
 
@@ -162,11 +163,6 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h2[class="tasty-recipes-title"]',
         ingredientsSelector: 'div[class="tasty-recipes-ingredients-body"] > ul > li',
         directionsSelector: 'div[class="tasty-recipes-instructions-body"] > ol > li'
-    },
-    'seriouseats.com' : {
-        titleSelector: 'h1.heading__title',
-        ingredientsSelector: '.section--ingredients .structured-ingredients__list-item',
-        directionsSelector: '.section--instructions ol > li > p',
     },
     'simplyrecipes.com' : {
         titleSelector: 'h1[class="heading__title"]',
