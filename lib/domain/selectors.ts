@@ -21,6 +21,7 @@ export const supportedDomains = [
     'kotikokki.net',
     'littlesweetbaker.com',
     'loveandlemons.com',
+    'myrecipes.com',
     'natashaskitchen.com',
     'onceuponachef.com',
     'pillsbury.com',
@@ -158,6 +159,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="entry-title"] > a',
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
+    },
+    'myrecipes.com' : {
+        titleSelector: 'h1[class~="heading-content"]',
+        ingredientsSelector: 'span.ingredients-item-name',
+        directionsSelector: 'li.instructions-section-item > div.section-body'
     },
     'natashaskitchen.com' : {
         titleSelector: 'h2[class="wprm-recipe-name"]',
