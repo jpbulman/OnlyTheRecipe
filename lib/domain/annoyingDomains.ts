@@ -137,6 +137,31 @@ const getTastyCoData = (html: string): RecipeMetadata => {
     }
 }
 
+const getEatingWellData = (html: string): RecipeMetadata => {
+    const $ = cheerio.load(html);
+    const title = $('.recipe-main-header h1').text().trim();
+    const ingredientSections: IngredientsSection[] = [];
+    const ingredientsBlock = $('.ingredients-section__fieldset');
+    ingredientsBlock.map((_, element) => {
+        const sectionName = $(element).find('.section-subheadline').text().trim();
+        const ingredients = [];
+        $(element).find('.ingredients-item-name').map((_, element) => {
+            ingredients.push($(element).text().trim());
+        });
+        ingredientSections.push({
+            sectionName,
+            ingredients,
+        })
+    });
+    const directions = getItemListFromSelector(html, '.instructions-section-item .section-body');
+    return {
+        title,
+        ingredients: ingredientSections,
+        directions,
+        domainIsSupported: true,
+    }
+};
+
 type annoyingDomainToSelectionFunction = {
     [key in typeof annoyingToParseDomains[number]]: (html: string) => RecipeMetadata
 }
@@ -145,4 +170,5 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'bonappetit.com' : getBonAppetitData,
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
+    'eatingwell.com' : getEatingWellData,
 }
