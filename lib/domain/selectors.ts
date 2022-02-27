@@ -31,6 +31,7 @@ export const supportedDomains = [
     'tasteofhome.com',
     'tasty.co',
     'thepioneerwoman.com',
+    'thefoodcharlatan.com',
     'thestayathomechef.com',
     'valio.fi',
     'whatsgabycooking.com',
@@ -204,6 +205,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
         ingredientsSelector: 'div[class="ingredients-prep clearfix col"] > div > div > ul > li',
         directionsSelector: 'div[class="ingredients-prep clearfix col"] > div > ol > li',
+    },
+    'thefoodcharlatan.com': {
+        titleSelector: 'h2[class="wprm-recipe-name wprm-block-text-bold"]',
+        ingredientsSelector: 'div[class="wprm-recipe-ingredient-group"] > ul > li',
+        directionsSelector: 'div[class="wprm-recipe-instruction-group"] > ul > li',
     },
     'thepioneerwoman.com' : {
         titleSelector: 'h1[class="content-hed recipe-hed"]',
