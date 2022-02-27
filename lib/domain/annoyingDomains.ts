@@ -154,6 +154,44 @@ const getNYTCookingData = (html: string): RecipeMetadata => {
     }
 }
 
+const getSeriouseatsData = (html: string): RecipeMetadata => {
+    const $ = cheerio.load(html);
+    const title = $('h1.heading__title').text().trim()
+    const ingredientsBlock = $('.ingredient-list li, .section--ingredients li')
+
+    const ingredientSections: IngredientsSection[] = []
+    let currIngredientSectionName = ''
+    let ingredientsList = [];
+
+    ingredientsBlock.map((_, element) => {
+        const elementText = $(element).text().trim()
+        if ($(element).find('strong').length === 1) {
+            if (currIngredientSectionName !== '') {
+                ingredientSections.push({
+                    sectionName: currIngredientSectionName,
+                    ingredients: ingredientsList,
+                })
+                ingredientsList = []
+            }
+            currIngredientSectionName = elementText
+        } else {
+            ingredientsList.push(elementText)
+        }
+    });
+
+    ingredientSections.push({
+        sectionName: currIngredientSectionName,
+        ingredients: ingredientsList,
+    })
+
+    return {
+        title,
+        ingredients: ingredientSections,
+        directions: getItemListFromSelector(html, '.section--instructions ol > li > p'),
+        domainIsSupported: true,
+    }
+}
+
 const getTastyCoData = (html: string): RecipeMetadata => {
     const $ = cheerio.load(html);
     const title = $('h1').text().trim()
@@ -203,4 +241,5 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'joyfoodsunshine.com' : getJoyFoodSunshineData,
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
+    'seriouseats.com' : getSeriouseatsData,
 }
