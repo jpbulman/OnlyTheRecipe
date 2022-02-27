@@ -15,6 +15,7 @@ export const supportedDomains = [
     'inspiredtaste.net',
     'justonecookbook.com',
     'kingarthurbaking.com',
+    'kotikokki.net',
     'littlesweetbaker.com',
     'loveandlemons.com',
     'natashaskitchen.com',
@@ -28,9 +29,8 @@ export const supportedDomains = [
     'tasty.co',
     'thepioneerwoman.com',
     'thestayathomechef.com',
-    'whatsgabycooking.com',
     'valio.fi',
-    'kotikokki.net',
+    'whatsgabycooking.com',
     'yhteishyva.fi'
 ] as const;
 
@@ -129,6 +129,12 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'div[class="ingredient-section"] > ul > li',
         directionsSelector: 'article[class="recipe__instructions"] > div > ol > li > p'
     },
+    'kotikokki.net' : {
+        titleSelector: 'h1[id="recipe-title"]',
+        ingredientsSelector: 'tr.ingredient > td.name',
+        ingredientsAmountSelector: 'tr.ingredient > td.amount-unit',
+        directionsSelector: 'div.instructions > span > p'
+    },
     'littlesweetbaker.com' : {
         titleSelector: 'h2[class="tasty-recipes-title"]',
         ingredientsSelector: 'div[class="tasty-recipes-ingredients"] > div > ul > li',
@@ -195,22 +201,16 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
     },
-    'whatsgabycooking.com' : {
-        titleSelector: 'h1[class="entry-title"]',
-        ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
-        directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
-    },
     'valio.fi' : {
         titleSelector: 'h1[class^="Title"]',
         ingredientsSelector: 'td[class^="IngredientRowRight"]',
         ingredientsAmountSelector: 'td[class^="IngredientRowLeft"]',
         directionsSelector: 'div[class^="InstructionsRowRight"]'
     },
-    'kotikokki.net' : {
-        titleSelector: 'h1[id="recipe-title"]',
-        ingredientsSelector: 'tr.ingredient > td.name',
-        ingredientsAmountSelector: 'tr.ingredient > td.amount-unit',
-        directionsSelector: 'div.instructions > span > p'
+    'whatsgabycooking.com' : {
+        titleSelector: 'h1[class="entry-title"]',
+        ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
+        directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
     },
     'yhteishyva.fi' : {
         titleSelector: 'h1[class~="title"]',
