@@ -2,6 +2,25 @@ import { combineIngredientNamesAndAmounts, getItemListFromSelector, getTitleFrom
 import cheerio from 'cheerio';
 import { annoyingToParseDomains } from "./selectors";
 
+interface JoyFoodSunshineIngredientArray {
+    ingredients: [{
+        uid: number,
+        amount: string,
+        unit: string,
+        name: string,
+        notes: string,
+        converted: {
+            [key: string]: {
+                amount: string,
+                unit: string,
+                unit_id: number
+            }
+        },
+        unit_id: number,
+        id: number
+    }]
+}
+
 const getBonAppetitData = (html: string): RecipeMetadata => {
     const title = getTitleFromSelector(html, 'h1[data-testid="ContentHeaderHed"]')
 
@@ -47,6 +66,44 @@ const getBonAppetitData = (html: string): RecipeMetadata => {
         ingredients: ingredientSections,
         directions: directionsBlock,
         domainIsSupported: true,
+    }
+}
+
+const getJoyFoodSunshineData = (html: string): RecipeMetadata => {
+    const title = getTitleFromSelector(html, 'h2.wprm-recipe-name')
+
+    const $ = cheerio.load(html);
+
+    const directions: string[] = $("div.wprm-recipe-instruction-text").toArray().map(element => $(element).text().trim());
+
+    // The html contains the ingredients in a javascript array, so here we locate where that array is
+    const ingredientsStart = html.indexOf(' = {"ingredients":[');
+    if (ingredientsStart === -1) {
+        // The array wasn't found
+        return {
+            title,
+            ingredients: [],
+            directions,
+            domainIsSupported: true
+        }
+    }
+
+    const jsonStart = ingredientsStart + 3; // +3 to remove the " = " from the beginning
+    const jsonEnd = html.indexOf(';</script>', jsonStart);
+
+    // Parse the javascript array
+    const json: JoyFoodSunshineIngredientArray = JSON.parse(html.slice(jsonStart, jsonEnd));
+
+    const ingredients: IngredientsSection = {
+        sectionName: "Ingredients",
+        ingredients: json.ingredients.map(ing => `${ing.amount} ${ing.unit} ${ing.name} ${ing.notes}`.trim())
+    }
+
+    return {
+        title,
+        ingredients: [ingredients],
+        directions,
+        domainIsSupported: true
     }
 }
 
@@ -143,6 +200,7 @@ type annoyingDomainToSelectionFunction = {
 
 export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunction = {
     'bonappetit.com' : getBonAppetitData,
+    'joyfoodsunshine.com' : getJoyFoodSunshineData,
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
 }
