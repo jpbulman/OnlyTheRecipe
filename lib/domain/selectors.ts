@@ -29,6 +29,7 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
+    'eatingwell.com',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -39,6 +40,7 @@ export const annoyingToParseDomains = [
     'bonappetit.com',
     'cooking.nytimes.com',
     'tasty.co',
+    'eatingwell.com',
 ] as const;
 
 export const domainIsAnnoyingToParse = (domain: string): boolean => {
