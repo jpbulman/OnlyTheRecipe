@@ -4,6 +4,7 @@ export const supportedDomains = [
     'blueberry.org',
     'bonappetit.com',
     'budgetbytes.com',
+    'chefkoch.de',
     'cookingclassy.com',
     'cooking.nytimes.com',
     'delish.com',
@@ -29,7 +30,6 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
-    'chefkoch.de',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
