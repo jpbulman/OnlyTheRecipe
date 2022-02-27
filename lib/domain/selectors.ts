@@ -29,6 +29,7 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
+    'seriouseats.com',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -196,6 +197,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="entry-title"]',
         ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
         directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
+    },
+    'seriouseats.com' : {
+        titleSelector: 'h1.heading__title',
+        ingredientsSelector: '.section--ingredients .structured-ingredients__list-item',
+        directionsSelector: '.section--instructions ol > li > p',
     },
 }
 
