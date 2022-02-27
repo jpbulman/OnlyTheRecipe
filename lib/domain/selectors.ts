@@ -27,6 +27,7 @@ export const supportedDomains = [
     'pinchofyum.com',
     'sallysbakingaddiction.com',
     'simplyrecipes.com',
+    'soppa365.fi',
     'spendwithpennies.com',
     'tasteofhome.com',
     'tasty.co',
@@ -45,6 +46,7 @@ export const annoyingToParseDomains = [
     'bonappetit.com',
     'joyfoodsunshine.com',
     'cooking.nytimes.com',
+    'soppa365.fi',
     'tasty.co',
 ] as const;
 

@@ -21,6 +21,39 @@ interface JoyFoodSunshineIngredientArray {
     }]
 }
 
+// This is a part of the schema.org standard for Recipe: https://schema.org/Recipe
+// If you find another site which shares some/all fields with this, I think 
+// this should be named something more generic so that this interface can be
+// shared by both sites.
+interface Soppa365Data {
+    "@context": string,
+    "@graph": [{
+        "@type": string,
+        name: string,
+        description: string,
+        author: {
+            "@type": string,
+            name: string
+        },
+        prepTime: string,
+        totalTime: string,
+        datePublished: string,
+        recipeCategory: string[],
+        recipeIngredient: string[],
+        recipeInstructions: [{
+            "@type": string,
+            text: string
+        }],
+        recipeYield: string,
+        image: {
+            "@type": string,
+            representativeOfPage: "True" | "False",
+            url: string
+        },
+        keywords: string[]
+    }]
+}
+
 const getBonAppetitData = (html: string): RecipeMetadata => {
     const title = getTitleFromSelector(html, 'h1[data-testid="ContentHeaderHed"]')
 
@@ -154,6 +187,35 @@ const getNYTCookingData = (html: string): RecipeMetadata => {
     }
 }
 
+const getSoppa365Data = (html: string): RecipeMetadata => {
+    const jsonStart = html.indexOf('{"@context":"https://schema.org","@graph":');
+    
+    const title = getTitleFromSelector(html, 'meta[property="og:title"]');
+
+    if(jsonStart === -1){
+        return {
+            title,
+            directions: [],
+            ingredients: [],
+            domainIsSupported: true,
+        }
+    }
+    
+    const jsonEnd = html.indexOf('</script>', jsonStart);
+
+    const data: Soppa365Data = JSON.parse(html.slice(jsonStart, jsonEnd));
+
+    return {
+        title,
+        directions: data["@graph"][0].recipeInstructions.map(instruction => instruction.text),
+        domainIsSupported: true,
+        ingredients: [{
+            sectionName: "Ingredients",
+            ingredients: data["@graph"][0].recipeIngredient
+        }]
+    }
+}
+
 const getTastyCoData = (html: string): RecipeMetadata => {
     const $ = cheerio.load(html);
     const title = $('h1').text().trim()
@@ -202,5 +264,6 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'bonappetit.com' : getBonAppetitData,
     'joyfoodsunshine.com' : getJoyFoodSunshineData,
     'cooking.nytimes.com' : getNYTCookingData,
+    'soppa365.fi' : getSoppa365Data,
     'tasty.co' : getTastyCoData,
 }
