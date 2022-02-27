@@ -29,6 +29,9 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
+    'valio.fi',
+    'kotikokki.net',
+    'yhteishyva.fi'
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -197,6 +200,24 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
         directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
     },
+    'valio.fi' : {
+        titleSelector: 'h1[class^="Title"]',
+        ingredientsSelector: 'td[class^="IngredientRowRight"]',
+        ingredientsAmountSelector: 'td[class^="IngredientRowLeft"]',
+        directionsSelector: 'div[class^="InstructionsRowRight"]'
+    },
+    'kotikokki.net' : {
+        titleSelector: 'h1[id="recipe-title"]',
+        ingredientsSelector: 'tr.ingredient > td.name',
+        ingredientsAmountSelector: 'tr.ingredient > td.amount-unit',
+        directionsSelector: 'div.instructions > span > p'
+    },
+    'yhteishyva.fi' : {
+        titleSelector: 'h1[class~="title"]',
+        ingredientsSelector: 'div.recipe__ingredients div.ingredient-row > div[class~="name"]',
+        ingredientsAmountSelector: 'div.recipe__ingredients div.ingredient-row > div[class~="amount"]',
+        directionsSelector: 'div.recipe__step-ingredients > div > p'
+    }
 }
 
 // Wishlist
