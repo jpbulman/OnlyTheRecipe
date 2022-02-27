@@ -29,6 +29,7 @@ export const supportedDomains = [
     'thepioneerwoman.com',
     'thestayathomechef.com',
     'whatsgabycooking.com',
+    'chefkoch.de',
 ] as const;
 
 export const domainIsSupported = (domain: string): boolean => {
@@ -196,6 +197,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="entry-title"]',
         ingredientsSelector: 'li[class="wprm-recipe-ingredient"]',
         directionsSelector: 'div[class="wprm-recipe-instruction-text"]',
+    },
+    'chefkoch.de' : {
+        titleSelector: 'main.ds-container h1',
+        ingredientsSelector: '.ingredients tr',
+        directionsSelector: '.ds-recipe-meta + div',
     },
 }
 
