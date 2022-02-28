@@ -20,6 +20,7 @@ export const supportedDomains = [
     'joyfoodsunshine.com',
     'justonecookbook.com',
     'kingarthurbaking.com',
+    'kitchenstories.com',
     'kotikokki.net',
     'littlesweetbaker.com',
     'loveandlemons.com',
@@ -151,6 +152,12 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'title',
         ingredientsSelector: 'div[class="ingredient-section"] > ul > li',
         directionsSelector: 'article[class="recipe__instructions"] > div > ol > li > p'
+    },
+    'kitchenstories.com' : {
+        titleSelector: 'h1[class~=recipe-title]',
+        ingredientsSelector: 'table.ingredients > tbody > tr > td:nth-child(2)',
+        ingredientsAmountSelector: 'table.ingredients > tbody > tr > td:nth-child(1)',
+        directionsSelector: 'li[class~="step"] > p[class="text"]'
     },
     'kotikokki.net' : {
         titleSelector: 'h1[id="recipe-title"]',
