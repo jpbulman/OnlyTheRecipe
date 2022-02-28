@@ -10,7 +10,7 @@ export const supportedDomains = [
     'cooking.nytimes.com',
     'christinascucina.com',
     'delish.com',
-    // 'eatwell101.com',
+    'eatwell101.com',
     'epicurious.com',
     'food.com',
     'foodnetwork.com',
@@ -52,6 +52,7 @@ export const annoyingToParseDomains = [
     'bonappetit.com',
     'joyfoodsunshine.com',
     'cooking.nytimes.com',
+    'eatwell101.com',
     'tasty.co',
     'chefkoch.de',
 ] as const;
@@ -111,11 +112,6 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsAmountSelector: 'div[class="ingredient-lists"] > div[class="ingredient-item"] > span[class="ingredient-amount"]',
         directionsSelector: 'div[class="direction-lists"] > ol > li',
     },
-    // 'eatwell101.com' : {
-    //     titleSelector: 'h1[class="entry-title black bold"]',
-    //     ingredientsSelector: 'div[id="rco"] > ul > li',
-    //     directionsSelector: 'div[class="dr"] > p',
-    // },
     'epicurious.com' : {
         titleSelector: 'h1[data-testid="ContentHeaderHed"]',
         ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
@@ -278,4 +274,3 @@ export const recipeSelectors: domainInformationSelector = {
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
 // cafedelites.com
 // get rid of silly unicode checkboxes: https://www.spendwithpennies.com/easy-meatball-recipe/
-// https://www.eatwell101.com   
