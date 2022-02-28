@@ -4,6 +4,7 @@ export const supportedDomains = [
     'blueberry.org',
     'bonappetit.com',
     'budgetbytes.com',
+    'chefkoch.de',
     'cookingclassy.com',
     'cooking.nytimes.com',
     'christinascucina.com',
@@ -46,6 +47,7 @@ export const annoyingToParseDomains = [
     'joyfoodsunshine.com',
     'cooking.nytimes.com',
     'tasty.co',
+    'chefkoch.de',
 ] as const;
 
 export const domainIsAnnoyingToParse = (domain: string): boolean => {
