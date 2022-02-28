@@ -72,7 +72,7 @@ export default function Recipe() {
             <div>
                 <h1>{title}</h1>
                 <a href={originalURL} target="_blank">Original Recipe</a>
-                <h1>Ingredients</h1>
+                <h2>Ingredients</h2>
                 { ingredients.map((section, idx) => 
                     (
                         <>
@@ -81,7 +81,7 @@ export default function Recipe() {
                         </>
                     )
                 )}
-                <h1>Directions</h1>
+                <h2>Directions</h2>
                 { directions.map((direction, idx) => <p key={`${direction}-${idx}`}>{direction}</p>) }
             </div>
         </Layout>
