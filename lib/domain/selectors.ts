@@ -5,6 +5,7 @@ export const supportedDomains = [
     'blueberry.org',
     'bonappetit.com',
     'budgetbytes.com',
+    'cafedelites.com',
     'chefkoch.de',
     'cookingclassy.com',
     'cooking.nytimes.com',
@@ -50,6 +51,7 @@ export const domainIsSupported = (domain: string): boolean => {
 
 export const annoyingToParseDomains = [
     'bonappetit.com',
+    'cafedelites.com',
     'joyfoodsunshine.com',
     'cooking.nytimes.com',
     'tasty.co',
@@ -276,6 +278,5 @@ export const recipeSelectors: domainInformationSelector = {
 
 // Wishlist
 // Weird 'deselect all' https://www.foodnetwork.com/recipes/alton-brown/cocoa-brownies-recipe-2085484
-// cafedelites.com
 // get rid of silly unicode checkboxes: https://www.spendwithpennies.com/easy-meatball-recipe/
 // https://www.eatwell101.com   

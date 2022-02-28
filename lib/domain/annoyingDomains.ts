@@ -69,6 +69,26 @@ const getBonAppetitData = (html: string): RecipeMetadata => {
     }
 }
 
+const getCafeDelitesData = (html: string | Buffer): RecipeMetadata => {
+    const title = getTitleFromSelector(html, 'h1.wprm-recipe-name')
+
+    const $ = cheerio.load(html);
+
+    const ingredients: IngredientsSection[] = $('div.wprm-recipe-ingredient-group').toArray().map(group => ({
+        sectionName: $(group).find('h3').text().trim(),
+        ingredients: $(group).find('li.wprm-recipe-ingredient').toArray().map(line => $(line).text().trim())
+    }));
+
+    const directions = $('li.wprm-recipe-instruction').toArray().map(dir => $(dir).text().trim());
+
+    return {
+        title,
+        ingredients,
+        directions,
+        domainIsSupported: true
+    }
+}
+
 const getJoyFoodSunshineData = (html: string): RecipeMetadata => {
     const title = getTitleFromSelector(html, 'h2.wprm-recipe-name')
 
@@ -234,6 +254,7 @@ type annoyingDomainToSelectionFunction = {
 
 export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunction = {
     'bonappetit.com' : getBonAppetitData,
+    'cafedelites.com' : getCafeDelitesData,
     'joyfoodsunshine.com' : getJoyFoodSunshineData,
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
