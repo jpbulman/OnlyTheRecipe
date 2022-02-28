@@ -12,6 +12,7 @@ export const supportedDomains = [
     'delish.com',
     // 'eatwell101.com',
     'epicurious.com',
+    'food.com',
     'foodnetwork.com',
     'gimmesomeoven.com',
     'howtobbqright.com',
@@ -117,6 +118,12 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[data-testid="ContentHeaderHed"]',
         ingredientsSelector: 'div[data-testid="IngredientList"] > div > div',
         directionsSelector: 'div[data-testid="InstructionsWrapper"] > div > div',
+    },
+    'food.com' : {
+        titleSelector: 'h1',
+        ingredientsSelector: 'div.recipe-ingredients__ingredient-parts',
+        ingredientsAmountSelector: 'div.recipe-ingredients__ingredient-quantity',
+        directionsSelector: 'li.recipe-directions__step'
     },
     'foodnetwork.com' : {
         titleSelector: 'section[class="o-AssetTitle"] > h1 > span',
