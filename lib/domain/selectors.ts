@@ -4,6 +4,7 @@ export const supportedDomains = [
     'bettycrocker.com',
     'blueberry.org',
     'bonappetit.com',
+    'broccyourbody.com',
     'budgetbytes.com',
     'chefkoch.de',
     'cookingclassy.com',
@@ -89,6 +90,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[itemprop="name"]',
         ingredientsSelector: 'div[class="ingredients"] > ul > li',
         directionsSelector: 'section[itemprop="recipeInstructions"] > div > ol > li',
+    },
+    'broccyourbody.com' : {
+        titleSelector: 'h2[class="wprm-recipe-name"]',
+        ingredientsSelector: 'div[class="wprm-recipe-ingredient-group"] > ul > li',
+        directionsSelector: 'div[class="wprm-recipe-instruction-group"] > ol > li',
     },
     'budgetbytes.com' : {
         titleSelector: 'h1[class="title"]',
