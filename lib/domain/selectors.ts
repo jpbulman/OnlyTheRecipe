@@ -35,6 +35,7 @@ export const supportedDomains = [
     'simplyrecipes.com',
     'spendwithpennies.com',
     'tasteofhome.com',
+    'taste.com.au',
     'tasty.co',
     'thefoodietakesflight.com',
     'thepioneerwoman.com',
@@ -234,6 +235,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1[class="recipe-title"]',
         ingredientsSelector: 'div[class="recipe-ingredients"] > ul > li',
         directionsSelector: 'ol[class="recipe-directions__list"] > li',
+    },
+    'taste.com.au' : {
+        titleSelector: 'h1',
+        ingredientsSelector: 'div[id="tabIngredients"] > ul > li',
+        directionsSelector: 'div[id="tabMethodSteps"] > ul > li',
     },
     'tasty.co' : {
         titleSelector: 'h1[class="recipe-name extra-bold xs-mb05 md-mb1"]',
