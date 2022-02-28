@@ -182,6 +182,6 @@ type annoyingDomainToSelectionFunction = {
 export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunction = {
     'bonappetit.com' : getBonAppetitData,
     'cooking.nytimes.com' : getNYTCookingData,
-    'tasty.co' : getTastyCoData,
     'seriouseats.com' : getSeriouseatsData,
+    'tasty.co' : getTastyCoData,
 }
