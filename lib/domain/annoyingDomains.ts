@@ -2,6 +2,45 @@ import { combineIngredientNamesAndAmounts, getItemListFromSelector, getTitleFrom
 import cheerio from 'cheerio';
 import { annoyingToParseDomains } from "./selectors";
 
+export interface Eatwell101Data {
+    "@context": string,
+    "@type": string,
+    mainEntityOfPage: {
+        "@type": string,
+        "@id": string
+    }
+    name: string,
+    url: string,
+    headline: string,
+    Description: string,
+    author: {
+        "@type": string,
+        name: string,
+    },
+    image: string,
+    datePublished: string,
+    dateModified: string,
+    Publisher: {
+        "@type": string,
+        name: string,
+        Logo: {
+            "@type": string,
+            url: string,
+        },
+    },
+    prepTime: string,
+    cookTime: string,
+    recipeYield: string,
+    recipeIngredient: string,
+    nutrition: {
+        "@type": string,
+        calories: string,
+    },
+    keywords: string,
+    recipeCategory: string,
+    recipeCuisine: string,
+}
+
 interface JoyFoodSunshineIngredientArray {
     ingredients: [{
         uid: number,
@@ -68,6 +107,39 @@ const getBonAppetitData = (html: string): RecipeMetadata => {
         domainIsSupported: true,
     }
 }
+
+const getEatwell101Data = (html: string): RecipeMetadata => {
+    const jsonStart = html.indexOf('{"@context":"https:\\/\\/schema.org\\/","@type":"Recipe"');
+    if (jsonStart === -1) {
+        return {
+            title: "",
+            ingredients: [],
+            directions: [],
+            domainIsSupported: true
+        }
+    }
+
+    const jsonEnd = html.indexOf('// ]]>', jsonStart);
+
+    const data: Eatwell101Data = JSON.parse(html.slice(jsonStart, jsonEnd));
+
+    const title = data.name;
+
+    const ingredients: IngredientsSection[] = [{
+        sectionName: "",
+        ingredients: data.recipeIngredient.trim().split("\n")
+    }];
+
+    const $ = cheerio.load(html);
+
+    const directions = $('h2:contains("Directions")').nextUntil('*:not(p)').toArray().map(l => $(l).text()).filter(dir => !dir.toLowerCase().includes("photo credit"));
+    return {
+        title,
+        ingredients,
+        directions: directions,
+        domainIsSupported: true
+    };
+};
 
 const getJoyFoodSunshineData = (html: string): RecipeMetadata => {
     const title = getTitleFromSelector(html, 'h2.wprm-recipe-name')
@@ -236,6 +308,7 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'bonappetit.com' : getBonAppetitData,
     'joyfoodsunshine.com' : getJoyFoodSunshineData,
     'cooking.nytimes.com' : getNYTCookingData,
+    'eatwell101.com': getEatwell101Data,
     'tasty.co' : getTastyCoData,
     'chefkoch.de' : getChefkochData,
 }
