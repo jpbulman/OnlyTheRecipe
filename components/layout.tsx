@@ -28,21 +28,17 @@ export default function Layout({
       <header className={styles.header}>
         {home ? (
           <>
-            <h1 className={utilStyles.heading5Xl}>🌯</h1>
+            <span className={utilStyles.heading5Xl}>🌯</span>
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
         ) : (
           <>
             <Link href="/">
-              <a>
-                <h1 className={utilStyles.heading5Xl}>🌯</h1>
-              </a>
+              <a className={utilStyles.heading5Xl}>🌯</a>
             </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
+            <Link href="/">
+              <a className={utilStyles.colorInherit + " " + utilStyles.headingLg}>{name}</a>
+            </Link>
           </>
         )}
       </header>
