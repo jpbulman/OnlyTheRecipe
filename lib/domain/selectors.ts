@@ -1,64 +1,4 @@
-export const supportedDomains = [
-    'allrecipes.com',
-    'bbcgoodfood.com',
-    'bettycrocker.com',
-    'blueberry.org',
-    'bonappetit.com',
-    'budgetbytes.com',
-    'chefkoch.de',
-    'cookingclassy.com',
-    'cooking.nytimes.com',
-    'christinascucina.com',
-    'delish.com',
-    // 'eatwell101.com',
-    'epicurious.com',
-    'food.com',
-    'foodnetwork.com',
-    'gimmesomeoven.com',
-    'howtobbqright.com',
-    'ice.edu',
-    'inspiredtaste.net',
-    'joyfoodsunshine.com',
-    'justonecookbook.com',
-    'kingarthurbaking.com',
-    'kitchenstories.com',
-    'kotikokki.net',
-    'littlesweetbaker.com',
-    'loveandlemons.com',
-    'myrecipes.com',
-    'natashaskitchen.com',
-    'onceuponachef.com',
-    'pillsbury.com',
-    'pinchofyum.com',
-    'reseptitaivas.fi',
-    'sallysbakingaddiction.com',
-    'simplyrecipes.com',
-    'spendwithpennies.com',
-    'tasteofhome.com',
-    'tasty.co',
-    'thefoodietakesflight.com',
-    'thepioneerwoman.com',
-    'thestayathomechef.com',
-    'valio.fi',
-    'whatsgabycooking.com',
-    'yhteishyva.fi'
-] as const;
-
-export const domainIsSupported = (domain: string): boolean => {
-    return supportedDomains.find((d) => d === domain) !== undefined
-}
-
-export const annoyingToParseDomains = [
-    'bonappetit.com',
-    'joyfoodsunshine.com',
-    'cooking.nytimes.com',
-    'tasty.co',
-    'chefkoch.de',
-] as const;
-
-export const domainIsAnnoyingToParse = (domain: string): boolean => {
-    return annoyingToParseDomains.find((d) => d === domain) !== undefined
-}
+import { selectionFunctionPerAnnoyingDomain } from './annoyingDomains';
 
 type recipeSelectorSet = {
     titleSelector: string,
@@ -67,8 +7,11 @@ type recipeSelectorSet = {
     directionsSelector: string,
 }
 
-type domainInformationSelector = { [key in typeof supportedDomains[number]]?: recipeSelectorSet };
+type domainInformationSelector = { [domain: string]: recipeSelectorSet };
 
+// minKeys is 5 to "ignore" the titleSelector, ingredientsSelector and directionsSelector keys. 
+// If recipeSelectorSet has more keys later, minKeys should be increased to `key count + 1`
+/* eslint sort-keys: ["error", "asc", { minKeys: 5 }] */
 export const recipeSelectors: domainInformationSelector = {
     'allrecipes.com' : {
         titleSelector: 'div[class="headline-wrapper"] > h1',
@@ -95,15 +38,15 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
         directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
     },
-    'cookingclassy.com' : {
-        titleSelector: 'h1[class="title"]',
-        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
-        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
-    },
     'christinascucina.com' : {
         titleSelector: 'h2.mv-create-title',
         ingredientsSelector: 'div.mv-create-ingredients > ul > li',
         directionsSelector: 'div.mv-create-instructions li, div.mv-create-instructions *:header:not(*[class~="mv-create-instructions-title"])'
+    },
+    'cookingclassy.com' : {
+        titleSelector: 'h1[class="title"]',
+        ingredientsSelector: 'ul[class="wprm-recipe-ingredients"] > li',
+        directionsSelector: 'ul[class="wprm-recipe-instructions"] > li',
     },
     'delish.com' : {
         titleSelector: 'h1[class="content-hed recipe-hed"]',
@@ -272,6 +215,20 @@ export const recipeSelectors: domainInformationSelector = {
         ingredientsAmountSelector: 'div.recipe__ingredients div.ingredient-row > div[class~="amount"]',
         directionsSelector: 'div.recipe__step-ingredients > div > p'
     }
+}
+
+export const annoyingToParseDomains = Object.keys(selectionFunctionPerAnnoyingDomain);
+export const supportedDomains = [
+    ...Object.keys(recipeSelectors),
+    ...annoyingToParseDomains
+];
+
+export const domainIsSupported = (domain: string): boolean => {
+    return supportedDomains.find((d) => d === domain) !== undefined
+}
+
+export const domainIsAnnoyingToParse = (domain: string): boolean => {
+    return annoyingToParseDomains.find((d) => d === domain) !== undefined
 }
 
 // Wishlist
