@@ -17,7 +17,7 @@ export interface RecipeMetadata {
 }
 
 // https://stackoverflow.com/a/43467144/7355232
-function isValidHttpUrl(string) {
+function isValidHttpUrl(string: string | URL) {
     let url: URL;
     
     try {
@@ -52,7 +52,7 @@ export async function getRecipeInformationForURLAsync(url: string): Promise<Reci
         )
 }
 
-const getRecipeDataForDomain = (domain: string, html): RecipeMetadata => {
+const getRecipeDataForDomain = (domain: string, html: string | Buffer): RecipeMetadata => {
     if (domainIsAnnoyingToParse(domain)) {
         return selectionFunctionPerAnnoyingDomain[domain](html)
     }
@@ -74,7 +74,7 @@ export const combineIngredientNamesAndAmounts = (names: string[], amounts: strin
     return amounts.map((val, idx) => `${val} ${names[idx]}`)
 }
 
-const getIngredients = (html, domain: string): IngredientsSection[] => {
+const getIngredients = (html: string | Buffer, domain: string): IngredientsSection[] => {
     const { ingredientsSelector, ingredientsAmountSelector } = recipeSelectors[domain]
     const ingredientNames = getItemListFromSelector(html, ingredientsSelector)
 
@@ -88,7 +88,7 @@ const getIngredients = (html, domain: string): IngredientsSection[] => {
     }
 }
 
-export const getItemListFromSelector = (html, selector: string): string[] => {
+export const getItemListFromSelector = (html: string | Buffer, selector: string): string[] => {
     const $ = cheerio.load(html);
 
     const listItems = $(selector);
@@ -100,7 +100,7 @@ export const getItemListFromSelector = (html, selector: string): string[] => {
     return textValues
 }
 
-export const getTitleFromSelector = (html, selector: string): string => {
+export const getTitleFromSelector = (html: string | Buffer, selector: string): string => {
     const $ = cheerio.load(html);
     return $(selector).text().trim();
 }
