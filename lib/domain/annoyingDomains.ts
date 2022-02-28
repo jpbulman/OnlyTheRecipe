@@ -1,6 +1,5 @@
 import { combineIngredientNamesAndAmounts, getItemListFromSelector, getTitleFromSelector, IngredientsSection, RecipeMetadata } from "../recipes";
 import cheerio from 'cheerio';
-import { annoyingToParseDomains } from "./selectors";
 
 interface JoyFoodSunshineIngredientArray {
     ingredients: [{
@@ -229,13 +228,15 @@ const getChefkochData = (html: string): RecipeMetadata => {
 }
 
 type annoyingDomainToSelectionFunction = {
-    [key in typeof annoyingToParseDomains[number]]: (html: string) => RecipeMetadata
+    [domain: string]: (html: string) => RecipeMetadata
 }
 
+// minKeys is 5 to "filter out" other cases in this file. It's kind of hacky...
+/* eslint sort-keys: ["error", "asc", { minKeys: 5 }] */
 export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunction = {
     'bonappetit.com' : getBonAppetitData,
-    'joyfoodsunshine.com' : getJoyFoodSunshineData,
-    'cooking.nytimes.com' : getNYTCookingData,
-    'tasty.co' : getTastyCoData,
     'chefkoch.de' : getChefkochData,
+    'cooking.nytimes.com' : getNYTCookingData,
+    'joyfoodsunshine.com' : getJoyFoodSunshineData,
+    'tasty.co' : getTastyCoData,
 }
