@@ -20,3 +20,15 @@
   box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;
   -webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;
 }
+
+@media print {
+  .container {
+    margin: 0 auto;
+  }
+  .header {
+    display: none;
+  }
+  .backToHome {
+    display: none;
+  }
+}
