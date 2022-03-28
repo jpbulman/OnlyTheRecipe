@@ -27,6 +27,7 @@ export default function Recipe() {
     const router = useRouter()
     const [data, setData] = useState(defaultRecipeData)
     const [isLoading, setLoading] = useState(false)
+    const [copiedToClipboard, setCopied] = useState(false)
 
     const { originalURL } = router.query as RecipesQueryParameters;
 
@@ -64,6 +65,10 @@ export default function Recipe() {
     if (isLoading) return <p>Loading...</p>
     if (!domainIsSupported) return domainNotSupported(originalURL)
 
+    const copyToClipboard = () => {
+        setCopied(true)
+    }
+
     return (
         <Layout>
             <Head>
@@ -72,6 +77,14 @@ export default function Recipe() {
             <div>
                 <h1>{title}</h1>
                 <a href={originalURL} target="_blank">Original Recipe</a>
+                <button
+                    type='button'
+                    style={{ marginLeft: 15, marginTop : 15 }}
+                    onClick={copyToClipboard}
+                    disabled={copiedToClipboard}
+                >
+                   {(!copiedToClipboard) ? "Share this Recipe" : "Link Copied to Clipboard"}
+                </button>
                 <h1>Ingredients</h1>
                 { ingredients.map((section, idx) => 
                     (
