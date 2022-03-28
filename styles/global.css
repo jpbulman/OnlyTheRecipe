@@ -50,3 +50,31 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0058af;
 }
+
+button[type="button"] {
+  background-color: #5a5a5a;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  height: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+button[type="button"]:hover {
+  background-color: #5a5a5a;
+}
+
+button[type="button"]:disabled {
+  background-color: white;
+  border: 1px solid darkgray;
+  color: gray;
+  border-radius: 10px;
+  height: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
