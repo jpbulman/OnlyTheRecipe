@@ -66,6 +66,8 @@ export default function Recipe() {
     if (!domainIsSupported) return domainNotSupported(originalURL)
 
     const copyToClipboard = () => {
+        // May not work for all browsers, but does work with most modern ones
+        navigator.clipboard.writeText(document.location.href)
         setCopied(true)
     }
 
@@ -83,7 +85,7 @@ export default function Recipe() {
                     onClick={copyToClipboard}
                     disabled={copiedToClipboard}
                 >
-                   {(!copiedToClipboard) ? "Share this Recipe" : "Link Copied to Clipboard"}
+                   {(!copiedToClipboard) ? "Share" : "Link Copied to Clipboard"}
                 </button>
                 <h1>Ingredients</h1>
                 { ingredients.map((section, idx) => 
