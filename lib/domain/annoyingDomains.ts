@@ -228,6 +228,42 @@ const getChefkochData = (html: string): RecipeMetadata => {
     }
 }
 
+const getThisDeliciousHouseData = (html: string): RecipeMetadata => {
+    const $ = cheerio.load(html);
+    const title = $('h1.entry-title').text().trim();
+
+    const ingredients: IngredientsSection[] = $('.wprm-recipe-ingredient-group')
+        .toArray()
+        .map(group => {
+            const g = $(group);
+            const groupName = g.find('h4').text().trim();
+            const rows = g.find("li.wprm-recipe-ingredient").toArray().map(row => {
+                const r = $(row)
+                const amount = r.find('span.wprm-recipe-ingredient-amount').text().trim();
+                const unit = r.find('span.wprm-recipe-ingredient-unit').text().trim();
+                const name = r.find('span.wprm-recipe-ingredient-name').text().trim();
+                const note = r.find('span.wprm-recipe-ingredient-notes').text().trim();
+                return note ?
+                    `${amount} ${unit} ${name} ${note}`.trim() :
+                    `${amount} ${unit} ${name}`.trim();
+            });
+
+            return {
+                sectionName: groupName,
+                ingredients: rows
+            }
+    });
+
+    const directions = $('div.wprm-recipe-instruction-text').toArray().map(element => $(element).text().trim());
+
+    return {
+        title,
+        ingredients,
+        directions,
+        domainIsSupported: true,
+    };
+}
+
 type annoyingDomainToSelectionFunction = {
     [key in typeof annoyingToParseDomains[number]]: (html: string) => RecipeMetadata
 }
@@ -238,4 +274,5 @@ export const selectionFunctionPerAnnoyingDomain : annoyingDomainToSelectionFunct
     'cooking.nytimes.com' : getNYTCookingData,
     'tasty.co' : getTastyCoData,
     'chefkoch.de' : getChefkochData,
+    'thisdelicioushouse.com' : getThisDeliciousHouseData
 }

@@ -39,6 +39,7 @@ export const supportedDomains = [
     'thefoodietakesflight.com',
     'thepioneerwoman.com',
     'thestayathomechef.com',
+    'thisdelicioushouse.com',
     'valio.fi',
     'whatsgabycooking.com',
     'yhteishyva.fi'
@@ -54,6 +55,7 @@ export const annoyingToParseDomains = [
     'cooking.nytimes.com',
     'tasty.co',
     'chefkoch.de',
+    'thisdelicioushouse.com',
 ] as const;
 
 export const domainIsAnnoyingToParse = (domain: string): boolean => {
