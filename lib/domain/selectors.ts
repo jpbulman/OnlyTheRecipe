@@ -31,6 +31,7 @@ export const supportedDomains = [
     'pillsbury.com',
     'pinchofyum.com',
     'reseptitaivas.fi',
+    'ricardocuisine.com',
     'sallysbakingaddiction.com',
     'simplyrecipes.com',
     'spendwithpennies.com',
@@ -214,6 +215,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'h1.post-title',
         ingredientsSelector: 'div.post-content > ul > li',
         directionsSelector: 'div.post-content > p:not(*[class="mobile-hidden"])'
+    },
+    'ricardocuisine.com' : {
+        titleSelector: 'div[id="main"] > section > div > div > div > h1',        
+        ingredientsSelector: 'section[id="ingredients"] > ul > li',
+        directionsSelector: 'section[id="preparation"] > ol > li',
     },
     'sallysbakingaddiction.com' : {
         titleSelector: 'h2[class="tasty-recipes-title"]',
