@@ -14,6 +14,7 @@ export const supportedDomains = [
     'epicurious.com',
     'food.com',
     'foodnetwork.com',
+    'funwithoutfodmaps.com',
     'gimmesomeoven.com',
     'howtobbqright.com',
     'ice.edu',
@@ -131,6 +132,11 @@ export const recipeSelectors: domainInformationSelector = {
         titleSelector: 'section[class="o-AssetTitle"] > h1 > span',
         ingredientsSelector: 'section[class="o-Ingredients"] > div > p',
         directionsSelector: 'section[data-module="recipe-method"] > div > ol > li',
+    },
+    'funwithoutfodmaps.com' : {
+        titleSelector: 'h2[class="tasty-recipes-title"]',
+        ingredientsSelector: 'div[class="tasty-recipes-ingredients"] > div > ul > li',
+        directionsSelector: 'div[class="tasty-recipes-instructions"] > div > ol > li',
     },
     'gimmesomeoven.com' : {
         titleSelector: 'h1[class="posttitle"]',
